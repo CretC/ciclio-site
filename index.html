@@ -30,6 +30,9 @@
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; background: var(--bg); color: var(--fg); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+.copy { transform-style: preserve-3d; will-change: transform; }
+section { scroll-margin-top: 16px; }
 body {
   font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -236,14 +239,19 @@ footer .in span { margin-right: auto; }
       <span data-l="en">How many deadlines are you keeping in your head?</span>
     </h1>
     <p>
-      <span data-l="ro"><span class="hint-pointer">Plimbă cursorul.</span><span class="hint-tilt">Înclină telefonul.</span> Ciclio le vede pe toate, ca să nu trebuiască să le ții tu minte.</span>
-      <span data-l="en"><span class="hint-pointer">Move your cursor around.</span><span class="hint-tilt">Tilt your phone.</span> Ciclio keeps an eye on all of them, so you don’t have to.</span>
+      <span data-l="ro"><span class="hint-pointer">Plimbă cursorul.</span><span class="hint-tilt">Înclină telefonul sau trage lupa cu degetul.</span> Ciclio le vede pe toate, ca să nu trebuiască să le ții tu minte.</span>
+      <span data-l="en"><span class="hint-pointer">Move your cursor around.</span><span class="hint-tilt">Tilt your phone or drag the lens.</span> Ciclio keeps an eye on all of them, so you don’t have to.</span>
     </p>
     <div class="cta">
       <span class="pill primary">
         <span data-l="ro">În curând pe Google Play</span>
         <span data-l="en">Coming soon to Google Play</span>
       </span>
+      <a class="pill ghost" href="#detalii">
+        <span data-l="ro">Detalii</span>
+        <span data-l="en">Details</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
       <button type="button" class="pill ghost" id="motion" hidden>
         <span data-l="ro">Activează mișcarea</span>
         <span data-l="en">Enable motion</span>
@@ -253,7 +261,7 @@ footer .in span { margin-right: auto; }
 </header>
 
 <main>
-  <section>
+  <section id="detalii">
     <div class="grid">
       <div class="card" style="--c: var(--red)">
         <h2><span class="dot"></span><span data-l="ro">Notificarea, la momentul potrivit</span><span data-l="en">The reminder, right on time</span></h2>
@@ -406,27 +414,84 @@ footer .in span { margin-right: auto; }
   }
 
   // Lens position: a normalised target (-1..1 on each axis) that the drawn
-  // position eases towards every frame. Sources, by priority: device tilt,
-  // pointer, then a slow idle drift so the page is alive with no input.
+  // position eases towards every frame. Sources, by priority: a finger
+  // dragging the lens, device tilt, the pointer, then a slow idle drift so
+  // the page is alive with no input.
   var tx = 0, ty = 0, cx = 0, cy = 0;
   var lastInput = -1e9;
   var tiltActive = false;
+  var dragging = false;
   var visible = true;
+  var running = false;
+  var lensX = 0, lensY = 0, lensR = 0; // last drawn, in tilt-box pixels
+
+  // Where the lens may roam. On a narrow screen the copy takes the top
+  // half, so the lens keeps to the bottom part; on a wide one it roams
+  // everywhere. toPx and fromPx are inverses of each other.
+  function bounds(w) {
+    return w < 700 ? { sx: 0.42, y0: 0.7, sy: 0.22 } : { sx: 0.42, y0: 0.52, sy: 0.4 };
+  }
+  function fromClient(clientX, clientY) {
+    var rect = tilt.getBoundingClientRect();
+    var w = tilt.clientWidth, h = tilt.clientHeight;
+    var b = bounds(w);
+    return {
+      x: ((clientX - rect.left) / w - 0.5) / b.sx,
+      y: ((clientY - rect.top) / h - b.y0) / b.sy,
+      px: clientX - rect.left,
+      py: clientY - rect.top
+    };
+  }
 
   hero.addEventListener('pointermove', function (e) {
-    if (tiltActive) return;
-    var r = tilt.getBoundingClientRect();
-    tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-    ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    if (tiltActive || dragging || e.pointerType === 'touch') return;
+    var p = fromClient(e.clientX, e.clientY);
+    tx = Math.max(-1.15, Math.min(1.15, p.x));
+    ty = Math.max(-1.15, Math.min(1.15, p.y));
     lastInput = performance.now();
   });
 
+  // A finger that lands on the lens drags it instead of scrolling the page;
+  // anywhere else the page scrolls as usual. Touch events (not pointer
+  // events) because only a non-passive touchstart can still cancel the scroll.
+  hero.addEventListener('touchstart', function (e) {
+    if (reduced || e.touches.length !== 1) return;
+    // Buttons and links stay tappable even under the lens.
+    if (e.target.closest && e.target.closest('a, button')) return;
+    var t0 = e.touches[0];
+    var p = fromClient(t0.clientX, t0.clientY);
+    var dx = p.px - lensX, dy = p.py - lensY;
+    if (dx * dx + dy * dy > (lensR * 1.2) * (lensR * 1.2)) return;
+    dragging = true;
+    e.preventDefault();
+  }, { passive: false });
+  hero.addEventListener('touchmove', function (e) {
+    if (!dragging) return;
+    e.preventDefault();
+    var p = fromClient(e.touches[0].clientX, e.touches[0].clientY);
+    tx = Math.max(-1.15, Math.min(1.15, p.x));
+    ty = Math.max(-1.15, Math.min(1.15, p.y));
+    lastInput = performance.now();
+  }, { passive: false });
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    // Tilt carries on from where the finger left the lens, not from the centre.
+    if (tiltActive) {
+      refGamma = rawX - tx * RANGE;
+      refBeta = rawY - ty * RANGE;
+    }
+    lastInput = performance.now();
+  }
+  hero.addEventListener('touchend', endDrag);
+  hero.addEventListener('touchcancel', endDrag);
+
   // Device tilt, relative to how the phone was held when the page opened.
-  // The reference follows the raw reading over a couple of seconds (in the
-  // frame loop, since a still phone may stop sending events), so a held
-  // pose re-centres the lens and only the movement itself shows.
+  // The reference follows the raw reading slowly (in the frame loop, since
+  // a still phone may stop sending events): a pose held for several seconds
+  // becomes the new centre, while any movement shows at once and in full.
   var refBeta = null, refGamma = null, rawX = 0, rawY = 0;
-  var RANGE = 18; // degrees of tilt that move the lens edge to edge
+  var RANGE = 12; // degrees of tilt that take the lens from centre to edge
   function onOrientation(e) {
     if (e.beta == null || e.gamma == null) return;
     var beta = e.beta, gamma = e.gamma;
@@ -458,45 +523,52 @@ footer .in span { margin-right: auto; }
     }
   }
 
+  function start() {
+    if (running || reduced) return;
+    running = true;
+    requestAnimationFrame(frame);
+  }
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
       visible = entries[0].isIntersecting;
-      if (visible) requestAnimationFrame(frame);
+      if (visible) start();
     }).observe(hero);
   }
 
-  var MAX_TILT_Y = 6, MAX_TILT_X = 4; // degrees
+  var copy = document.querySelector('.copy');
+  var MAX_TILT_Y = 9, MAX_TILT_X = 7, SHIFT = 22; // degrees, degrees, px
   function frame(t) {
-    if (!visible) return;
-    if (tiltActive) {
-      refGamma += (rawX - refGamma) * 0.012;
-      refBeta += (rawY - refBeta) * 0.012;
+    if (!visible) { running = false; return; }
+    if (tiltActive && !dragging) {
+      refGamma += (rawX - refGamma) * 0.0025;
+      refBeta += (rawY - refBeta) * 0.0025;
       tx = Math.max(-1, Math.min(1, (rawX - refGamma) / RANGE));
       ty = Math.max(-1, Math.min(1, (rawY - refBeta) / RANGE));
     }
-    if (t - lastInput > 2500) {
+    if (!dragging && t - lastInput > 2500) {
       // Idle: a slow Lissajous drift across the chips.
       var s = t / 1000;
       tx = 0.62 * Math.sin(s * 0.33);
       ty = 0.48 * Math.sin(s * 0.51 + 1.2);
     }
-    var ease = tiltActive ? 0.14 : 0.1;
+    var ease = dragging ? 0.4 : tiltActive ? 0.18 : 0.1;
     cx += (tx - cx) * ease;
     cy += (ty - cy) * ease;
 
     var w = tilt.clientWidth, h = tilt.clientHeight;
-    var r = Math.round(Math.max(96, Math.min(190, Math.min(w, h) * 0.2)));
-    // On a narrow screen the copy takes the top half, so the lens keeps to
-    // the bottom half; on a wide one it roams everywhere.
-    var narrow = w < 700;
-    var px = (0.5 + cx * 0.42) * w;
-    var py = (narrow ? 0.7 + cy * 0.18 : 0.52 + cy * 0.4) * h;
-    tilt.style.setProperty('--x', px.toFixed(1) + 'px');
-    tilt.style.setProperty('--y', py.toFixed(1) + 'px');
-    tilt.style.setProperty('--r', r + 'px');
-    ring.style.transform = 'translate3d(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px,0)';
-    // The page leans towards where you look (or how you hold the phone).
-    tilt.style.transform = 'rotateY(' + (cx * MAX_TILT_Y).toFixed(2) + 'deg) rotateX(' + (-cy * MAX_TILT_X).toFixed(2) + 'deg)';
+    var b = bounds(w);
+    lensR = Math.round(Math.max(96, Math.min(190, Math.min(w, h) * 0.2)));
+    lensX = (0.5 + cx * b.sx) * w;
+    lensY = (b.y0 + cy * b.sy) * h;
+    tilt.style.setProperty('--x', lensX.toFixed(1) + 'px');
+    tilt.style.setProperty('--y', lensY.toFixed(1) + 'px');
+    tilt.style.setProperty('--r', lensR + 'px');
+    ring.style.transform = 'translate3d(' + lensX.toFixed(1) + 'px,' + lensY.toFixed(1) + 'px,0)';
+    // The page leans with the lens: the deadlines swing and slide (parallax),
+    // the headline follows at a third of the angle, so the depth shows.
+    var ry = cx * MAX_TILT_Y, rx = -cy * MAX_TILT_X;
+    tilt.style.transform = 'translate3d(' + (-cx * SHIFT).toFixed(1) + 'px,' + (-cy * SHIFT).toFixed(1) + 'px,0) rotateY(' + ry.toFixed(2) + 'deg) rotateX(' + rx.toFixed(2) + 'deg)';
+    copy.style.transform = 'rotateY(' + (ry / 3).toFixed(2) + 'deg) rotateX(' + (rx / 3).toFixed(2) + 'deg)';
     requestAnimationFrame(frame);
   }
 
@@ -514,7 +586,7 @@ footer .in span { margin-right: auto; }
     tilt.style.setProperty('--y', (h0 / 2) + 'px');
     ring.style.transform = 'translate3d(' + (w0 / 2) + 'px,' + (h0 / 2) + 'px,0)';
   } else {
-    requestAnimationFrame(frame);
+    start();
   }
 })();
 </script>
