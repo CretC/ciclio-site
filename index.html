@@ -201,8 +201,47 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
 .pill.primary { background: var(--accent); color: #fff; box-shadow: 0 12px 40px rgba(75, 97, 224, 0.45); }
 .pill.ghost { background: rgba(11, 14, 26, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--fg); border: 1px solid var(--line); cursor: pointer; }
 .pill.ghost[hidden] { display: none; }
-#motion[aria-pressed="false"] .on, #motion[aria-pressed="true"] .off { display: none; }
-#motion[aria-pressed="true"] { border-color: var(--accent-soft); color: #fff; }
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(11, 14, 26, 0.88);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--fg);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.switch[hidden] { display: none; }
+.switch .track {
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.2s ease;
+}
+.switch .knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease;
+}
+.switch[aria-checked="true"] .track { background: var(--accent); }
+.switch[aria-checked="true"] .knob { transform: translateX(18px); }
+.motion-note { flex-basis: 100%; margin: 2px 0 0; font-size: 14px; color: #ffd27a; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9); }
+.motion-note[hidden] { display: none; }
 
 /* Below the fold */
 section { max-width: 1100px; margin: 0 auto; padding: 24px 20px 72px; }
@@ -282,7 +321,7 @@ footer .in span { margin-right: auto; }
       <span data-l="en">How many deadlines are you keeping in your head?</span>
     </h1>
     <p>
-      <span data-l="ro"><span class="hint-pointer">Plimbă cursorul.</span><span class="hint-tilt">Trage lupa cu degetul sau activează mișcarea.</span> Ciclio le vede pe toate, ca să nu trebuiască să le ții tu minte.</span>
+      <span data-l="ro"><span class="hint-pointer">Plimbă cursorul.</span><span class="hint-tilt">Trage lupa cu degetul sau pornește mișcarea telefonului.</span> Ciclio le vede pe toate, ca să nu trebuiască să le ții tu minte.</span>
       <span data-l="en"><span class="hint-pointer">Move your cursor around.</span><span class="hint-tilt">Drag the lens, or turn on motion.</span> Ciclio keeps an eye on all of them, so you don’t have to.</span>
     </p>
     <div class="cta">
@@ -295,10 +334,14 @@ footer .in span { margin-right: auto; }
         <span data-l="en">Details</span>
         <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <button type="button" class="pill ghost" id="motion" aria-pressed="false" hidden>
-        <span class="off"><span data-l="ro">Activează mișcarea</span><span data-l="en">Turn on motion</span></span>
-        <span class="on"><span data-l="ro">Oprește mișcarea</span><span data-l="en">Turn off motion</span></span>
+      <button type="button" class="switch" id="motion" role="switch" aria-checked="false" hidden>
+        <span class="track" aria-hidden="true"><span class="knob"></span></span>
+        <span data-l="ro">Mișcarea telefonului</span><span data-l="en">Phone motion</span>
       </button>
+      <p class="motion-note" id="motionNote" hidden>
+        <span data-l="ro">Browserul nu trimite date de la senzori. Verifică permisiunea „Senzori de mișcare” din setările site-ului (în Brave, și Shields).</span>
+        <span data-l="en">Your browser is not sending motion data. Check the "Motion sensors" permission in site settings (in Brave, Shields too).</span>
+      </p>
     </div>
   </div>
 </header>
@@ -546,13 +589,30 @@ footer .in span { margin-right: auto; }
   var refX = null, refY = null, rawX = 0, rawY = 0;
   var RANGE = 0.34; // ≈ sin 20°: that much tilt takes the lens centre to edge
   var events = 0, lastBeta = 0, lastGamma = 0;
+  var lastOrientationAt = -1e9;
   function onOrientation(e) {
     if (e.beta == null || e.gamma == null) return;
-    events++;
+    lastOrientationAt = performance.now();
     lastBeta = e.beta;
     lastGamma = e.gamma;
     var b = e.beta * Math.PI / 180, g = e.gamma * Math.PI / 180;
-    var ux = -Math.sin(g) * Math.cos(b), uy = Math.sin(b);
+    applyUp(-Math.sin(g) * Math.cos(b), Math.sin(b));
+  }
+  // Fallback for browsers that send motion but no orientation (Brave, with
+  // its fingerprinting protections): gravity as the accelerometer reads it
+  // is the same "up" vector, already in device axes. iOS reports it with the
+  // opposite sign; it also sends orientation, so it rarely gets here.
+  var flipMotion = /iPhone|iPad|iPod/.test(navigator.userAgent) ? -1 : 1;
+  function onMotion(e) {
+    if (performance.now() - lastOrientationAt < 500) return;
+    var a = e.accelerationIncludingGravity;
+    if (!a || a.x == null || a.y == null || a.z == null) return;
+    var n = Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+    if (n < 1) return;
+    applyUp(flipMotion * a.x / n, flipMotion * a.y / n);
+  }
+  function applyUp(ux, uy) {
+    events++;
     // Into screen axes when the screen is rotated (landscape).
     var a = ((screen.orientation && screen.orientation.angle) || window.orientation || 0) * Math.PI / 180;
     var sx = ux * Math.cos(a) + uy * Math.sin(a);
@@ -584,13 +644,29 @@ footer .in span { margin-right: auto; }
   // (iOS, and Chrome on Android also exposes requestPermission, granting
   // without a prompt), the tap is the user gesture the request needs.
   var motionOn = false;
+  var motionNote = document.getElementById('motionNote');
+  var motionCheck = 0;
   function setMotion(on) {
     motionOn = on;
-    motionBtn.setAttribute('aria-pressed', String(on));
+    motionBtn.setAttribute('aria-checked', String(on));
+    clearTimeout(motionCheck);
     if (on) {
+      motionNote.hidden = true;
+      var before = events;
       window.addEventListener('deviceorientation', onOrientation);
+      window.addEventListener('devicemotion', onMotion);
+      // A browser can accept the request and still send nothing (Brave's
+      // shields, a site permission set to block): say so and switch back,
+      // rather than leave a switch that is "on" and does nothing.
+      motionCheck = setTimeout(function () {
+        if (motionOn && events === before) {
+          setMotion(false);
+          motionNote.hidden = false;
+        }
+      }, 1500);
     } else {
       window.removeEventListener('deviceorientation', onOrientation);
+      window.removeEventListener('devicemotion', onMotion);
       tiltActive = false;
       refX = null;
       refY = null;
@@ -598,7 +674,7 @@ footer .in span { margin-right: auto; }
       ty = 0;
     }
   }
-  if (!reduced && !finePointer && 'DeviceOrientationEvent' in window) {
+  if (!reduced && !finePointer && ('DeviceOrientationEvent' in window || 'DeviceMotionEvent' in window)) {
     var DOE = window.DeviceOrientationEvent;
     motionBtn.hidden = false;
     motionBtn.addEventListener('click', function () {
@@ -606,10 +682,18 @@ footer .in span { margin-right: auto; }
         setMotion(false);
         return;
       }
-      if (typeof DOE.requestPermission === 'function') {
+      // Ask where the browser asks (iOS needs it, from this very tap). The
+      // answer is not trusted either way: Chromium browsers expose the call
+      // too, and some reject or "grant" without it meaning anything — the
+      // events themselves decide, through the check in setMotion.
+      if (DOE && typeof DOE.requestPermission === 'function') {
         DOE.requestPermission().then(function (state) {
-          if (state === 'granted') setMotion(true);
-        }).catch(function () { /* refused: the button simply stays off */ });
+          if (state === 'denied') {
+            motionNote.hidden = false;
+          } else {
+            setMotion(true);
+          }
+        }).catch(function () { setMotion(true); });
       } else {
         setMotion(true);
       }
