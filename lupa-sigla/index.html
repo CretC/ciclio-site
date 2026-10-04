@@ -88,7 +88,7 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--line);
   color: var(--fg);
-  animation: sway var(--d, 7s) ease-in-out infinite;
+  animation: sway var(--d, 7s) ease-in-out var(--delay, 0s) infinite;
 }
 .chip i {
   display: inline-block;
@@ -101,7 +101,14 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
   box-shadow: 0 0 10px var(--c);
 }
 .chip span { opacity: 0.72; font-weight: 600; }
-@keyframes sway { 0%, 100% { translate: 0 0; } 50% { translate: 6px -6px; } }
+/* Each chip drifts on its own small loop (direction, reach and pace set per
+   chip in renderChips), so the field reads as floating, not as one wobble. */
+@keyframes sway {
+  0%, 100% { translate: 0 0; }
+  25% { translate: var(--ax) calc(var(--ay) * -1); }
+  50% { translate: calc(var(--ax) * 0.4) var(--ay); }
+  75% { translate: calc(var(--ax) * -0.8) calc(var(--ay) * 0.3); }
+}
 .ring {
   position: absolute;
   left: 0;
@@ -193,8 +200,10 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
   font-family: inherit;
 }
 .pill.primary { background: var(--accent); color: #fff; box-shadow: 0 12px 40px rgba(75, 97, 224, 0.45); }
-.pill.ghost { background: rgba(11, 14, 26, 0.6); color: var(--fg); border: 1px solid var(--line); cursor: pointer; }
+.pill.ghost { background: rgba(11, 14, 26, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--fg); border: 1px solid var(--line); cursor: pointer; }
 .pill.ghost[hidden] { display: none; }
+#motion[aria-pressed="false"] .on, #motion[aria-pressed="true"] .off { display: none; }
+#motion[aria-pressed="true"] { border-color: var(--accent-soft); color: #fff; }
 
 /* Below the fold */
 section { max-width: 1100px; margin: 0 auto; padding: 24px 20px 72px; }
@@ -274,8 +283,8 @@ footer .in span { margin-right: auto; }
       <span data-l="en">How many deadlines are you keeping in your head?</span>
     </h1>
     <p>
-      <span data-l="ro"><span class="hint-pointer">Plimbă cursorul.</span><span class="hint-tilt">Înclină telefonul sau trage lupa cu degetul.</span> Ciclio le vede pe toate, ca să nu trebuiască să le ții tu minte.</span>
-      <span data-l="en"><span class="hint-pointer">Move your cursor around.</span><span class="hint-tilt">Tilt your phone or drag the lens.</span> Ciclio keeps an eye on all of them, so you don’t have to.</span>
+      <span data-l="ro"><span class="hint-pointer">Plimbă cursorul.</span><span class="hint-tilt">Trage lupa cu degetul sau activează mișcarea.</span> Ciclio le vede pe toate, ca să nu trebuiască să le ții tu minte.</span>
+      <span data-l="en"><span class="hint-pointer">Move your cursor around.</span><span class="hint-tilt">Drag the lens, or turn on motion.</span> Ciclio keeps an eye on all of them, so you don’t have to.</span>
     </p>
     <div class="cta">
       <span class="pill primary">
@@ -287,9 +296,9 @@ footer .in span { margin-right: auto; }
         <span data-l="en">Details</span>
         <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <button type="button" class="pill ghost" id="motion" hidden>
-        <span data-l="ro">Activează mișcarea</span>
-        <span data-l="en">Enable motion</span>
+      <button type="button" class="pill ghost" id="motion" aria-pressed="false" hidden>
+        <span class="off"><span data-l="ro">Activează mișcarea</span><span data-l="en">Turn on motion</span></span>
+        <span class="on"><span data-l="ro">Oprește mișcarea</span><span data-l="en">Turn off motion</span></span>
       </button>
     </div>
   </div>
@@ -442,7 +451,8 @@ footer .in span { margin-right: auto; }
       var left = 6 + col * (88 / cols) + (row % 2 ? 44 / cols : 0) + ((i * 37) % 5) - (cols === 2 ? 4 : 0);
       var top = 9 + row * (84 / rows) + ((i * 53) % 4);
       html += '<div class="chip" style="left:' + left.toFixed(1) + '%;top:' + top.toFixed(1) + '%;--c:' + colour(it[2]) +
-        ';--d:' + (6 + (i % 5)) + 's"><i></i>' + it[lang] + ' · <span>' + when(it[2], lang ? 'en' : 'ro') + '</span></div>';
+        ';--d:' + (7 + ((i * 7) % 6)) + 's;--delay:-' + ((i * 1.7) % 9).toFixed(1) + 's' +
+        ';--ax:' + (i % 2 ? '' : '-') + (10 + ((i * 5) % 12)) + 'px;--ay:' + (8 + ((i * 3) % 10)) + 'px"><i></i>' + it[lang] + ' · <span>' + when(it[2], lang ? 'en' : 'ro') + '</span></div>';
     }
     base.innerHTML = html;
     lens.innerHTML = html;
@@ -459,12 +469,15 @@ footer .in span { margin-right: auto; }
   var visible = true;
   var running = false;
   var lensX = 0, lensY = 0, lensR = 0; // last drawn, in tilt-box pixels
+  var driftWeight = 1; // 0 = follow input, 1 = idle drift
 
   // Where the lens may roam. On a narrow screen the copy takes the top
   // half, so the lens keeps to the bottom part; on a wide one it roams
   // everywhere. toPx and fromPx are inverses of each other.
   function bounds(w) {
-    return w < 700 ? { sx: 0.42, y0: 0.7, sy: 0.22 } : { sx: 0.42, y0: 0.52, sy: 0.4 };
+    // The same on every screen: on a phone too the lens passes behind the
+    // headline (asked for on 2026-10-04 — it reads as depth, not clutter).
+    return { sx: 0.42, y0: 0.52, sy: 0.4 };
   }
   function fromClient(clientX, clientY) {
     var rect = tilt.getBoundingClientRect();
@@ -532,7 +545,7 @@ footer .in span { margin-right: auto; }
   // still phone may stop sending events): a pose held for several seconds
   // becomes the new centre, while any movement shows at once and in full.
   var refX = null, refY = null, rawX = 0, rawY = 0;
-  var RANGE = 0.2; // ≈ sin 12°: that much tilt takes the lens centre to edge
+  var RANGE = 0.34; // ≈ sin 20°: that much tilt takes the lens centre to edge
   var events = 0, lastBeta = 0, lastGamma = 0;
   function onOrientation(e) {
     if (e.beta == null || e.gamma == null) return;
@@ -546,11 +559,15 @@ footer .in span { margin-right: auto; }
     var sx = ux * Math.cos(a) + uy * Math.sin(a);
     var sy = -ux * Math.sin(a) + uy * Math.cos(a);
     // Downhill on screen: right is -x of "up", down is +y.
+    // A phone lying still keeps sending tiny jitter (or nothing at all, on
+    // Samsung): only a real change counts as someone moving it.
+    if (Math.abs(-sx - rawX) + Math.abs(sy - rawY) > 0.004 || !tiltActive) {
+      lastInput = performance.now();
+    }
     rawX = -sx;
     rawY = sy;
     if (refX === null) { refX = rawX; refY = rawY; }
     tiltActive = true;
-    lastInput = performance.now();
   }
 
   // ?debug shows what the page actually receives — for checking a real phone.
@@ -561,22 +578,43 @@ footer .in span { margin-right: auto; }
       'background:rgba(0,0,0,.75);color:#7CFC9A;font:12px/1.4 monospace;border-radius:8px;pointer-events:none';
     document.body.appendChild(debugBox);
   }
-  function listenTilt() { window.addEventListener('deviceorientation', onOrientation); }
-
+  // Motion sensors are opt-in (asked for on 2026-10-04): the page starts
+  // without them — the lens drifts and follows a finger — and reads the
+  // sensors only after the visitor taps "Activează mișcarea"; the same
+  // button turns them off again. Where the browser asks for permission
+  // (iOS, and Chrome on Android also exposes requestPermission, granting
+  // without a prompt), the tap is the user gesture the request needs.
+  var motionOn = false;
+  function setMotion(on) {
+    motionOn = on;
+    motionBtn.setAttribute('aria-pressed', String(on));
+    if (on) {
+      window.addEventListener('deviceorientation', onOrientation);
+    } else {
+      window.removeEventListener('deviceorientation', onOrientation);
+      tiltActive = false;
+      refX = null;
+      refY = null;
+      tx = 0;
+      ty = 0;
+    }
+  }
   if (!reduced && !finePointer && 'DeviceOrientationEvent' in window) {
     var DOE = window.DeviceOrientationEvent;
-    if (typeof DOE.requestPermission === 'function') {
-      // iOS asks for permission, and only from a tap.
-      motionBtn.hidden = false;
-      motionBtn.addEventListener('click', function () {
+    motionBtn.hidden = false;
+    motionBtn.addEventListener('click', function () {
+      if (motionOn) {
+        setMotion(false);
+        return;
+      }
+      if (typeof DOE.requestPermission === 'function') {
         DOE.requestPermission().then(function (state) {
-          if (state === 'granted') listenTilt();
-          motionBtn.hidden = true;
-        }).catch(function () { motionBtn.hidden = true; });
-      });
-    } else {
-      listenTilt();
-    }
+          if (state === 'granted') setMotion(true);
+        }).catch(function () { /* refused: the button simply stays off */ });
+      } else {
+        setMotion(true);
+      }
+    });
   }
 
   function start() {
@@ -605,17 +643,21 @@ footer .in span { margin-right: auto; }
       debugBox.textContent = 'events ' + events + (tiltActive ? '' : ' (no sensor yet)') +
         '\nbeta ' + lastBeta.toFixed(1) + '  gamma ' + lastGamma.toFixed(1) +
         '\nlens ' + tx.toFixed(2) + ', ' + ty.toFixed(2) + (dragging ? '  drag' : '') +
-        (t - lastInput > 2500 && !dragging ? '  idle drift' : '');
+        '  drift ' + driftWeight.toFixed(2);
     }
-    if (!dragging && t - lastInput > 2500) {
-      // Idle: a slow Lissajous drift across the chips.
-      var s = t / 1000;
-      tx = 0.62 * Math.sin(s * 0.33);
-      ty = 0.48 * Math.sin(s * 0.51 + 1.2);
-    }
-    var ease = dragging ? 0.4 : tiltActive ? 0.18 : 0.1;
-    cx += (tx - cx) * ease;
-    cy += (ty - cy) * ease;
+    // Idle: a slow Lissajous drift across the chips, blended in and out
+    // rather than switched, so the lens never jumps between the two. It
+    // fades in over a couple of seconds, and gives way within a few frames
+    // the moment someone moves the phone, the cursor or a finger.
+    var idle = !dragging && t - lastInput > 2500;
+    driftWeight += ((idle ? 1 : 0) - driftWeight) * (idle ? 0.012 : 0.15);
+    var s = t / 1000;
+    var fx = tx * (1 - driftWeight) + 0.62 * Math.sin(s * 0.33) * driftWeight;
+    var fy = ty * (1 - driftWeight) + 0.48 * Math.sin(s * 0.51 + 1.2) * driftWeight;
+    // Tilt glides (slow, heavy) rather than snapping to the hand.
+    var ease = dragging ? 0.4 : tiltActive ? 0.045 : 0.1;
+    cx += (fx - cx) * ease;
+    cy += (fy - cy) * ease;
 
     var w = tilt.clientWidth, h = tilt.clientHeight;
     var b = bounds(w);
