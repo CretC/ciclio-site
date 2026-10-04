@@ -61,10 +61,21 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
 .layer { position: absolute; inset: 0; }
 .layer.base { filter: blur(5px); opacity: 0.72; }
 .layer.lens {
-  -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 62%, transparent 100%);
-  mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 62%, transparent 100%);
+  /* Same rounded square as the app icon (rx 230 of 1024 = 22.5%). */
+  --shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22.5' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--shape);
+  mask-image: var(--shape);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  /* The layer is magnified 1.08x around the lens centre, and the mask
+     scales with it: drawn at r/1.08 so it lands exactly on the glass. */
+  --mr: calc(var(--r) / 1.08);
+  -webkit-mask-size: calc(var(--mr) * 2) calc(var(--mr) * 2);
+  mask-size: calc(var(--mr) * 2) calc(var(--mr) * 2);
+  -webkit-mask-position: calc(var(--x) - var(--mr)) calc(var(--y) - var(--mr));
+  mask-position: calc(var(--x) - var(--mr)) calc(var(--y) - var(--mr));
   transform-origin: var(--x) var(--y);
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 .chip {
   position: absolute;
@@ -104,21 +115,14 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
   width: calc(var(--r) * 2);
   height: calc(var(--r) * 2);
   margin: calc(var(--r) * -1) 0 0 calc(var(--r) * -1);
-  border-radius: 50%;
   pointer-events: none;
   will-change: transform;
+  filter: drop-shadow(0 24px 60px rgba(75, 97, 224, 0.45));
 }
-.ring::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 3px solid rgba(129, 148, 243, 0.55);
-  border-right-color: transparent;
-  box-shadow: 0 0 60px rgba(75, 97, 224, 0.25) inset;
-  animation: spin 9s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+.ring svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.ring .mark { animation: breathe 5s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { opacity: 0.38; } 50% { opacity: 0.52; } }
+.ring .mark { filter: drop-shadow(0 0 18px rgba(174, 186, 255, 0.6)); }
 .veil {
   position: absolute;
   inset: 0;
@@ -217,7 +221,7 @@ footer .in span { margin-right: auto; }
   .copy { padding-top: 9vh; padding-top: 9svh; padding-bottom: 46vh; padding-bottom: 46svh; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .chip, .ring::before { animation: none; }
+  .chip, .ring .mark { animation: none; }
 }
 </style>
 </head>
@@ -227,7 +231,37 @@ footer .in span { margin-right: auto; }
   <div class="tilt" id="tilt" aria-hidden="true">
     <div class="layer base" id="base"></div>
     <div class="layer lens" id="lens"></div>
-    <div class="ring" id="ring"></div>
+    <div class="ring" id="ring">
+      <svg viewBox="0 0 1024 1024">
+        <defs>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#8194f3" stop-opacity="0.20"/>
+            <stop offset="0.55" stop-color="#4b61e0" stop-opacity="0.04"/>
+            <stop offset="1" stop-color="#4b61e0" stop-opacity="0.14"/>
+          </linearGradient>
+          <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#c3ccff"/>
+          </linearGradient>
+          <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.75"/>
+            <stop offset="0.5" stop-color="#aebaff" stop-opacity="0.25"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0.55"/>
+          </linearGradient>
+          <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect width="1024" height="1024" rx="230" fill="url(#glass)"/>
+        <path d="M 230 0 H 794 A 230 230 0 0 1 1024 230 V 360 C 760 300 300 420 0 330 V 230 A 230 230 0 0 1 230 0 Z" fill="url(#sheen)"/>
+        <rect x="6" y="6" width="1012" height="1012" rx="226" fill="none" stroke="url(#rim)" stroke-width="12"/>
+        <g class="mark" fill="none" stroke="url(#ink)" stroke-width="104" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 716 308 A 288 288 0 1 0 716 716"/>
+          <path d="M 392 524 L 488 616 L 664 432"/>
+        </g>
+      </svg>
+    </div>
   </div>
   <div class="veil" aria-hidden="true"></div>
 
@@ -626,7 +660,7 @@ footer .in span { margin-right: auto; }
 
     var w = tilt.clientWidth, h = tilt.clientHeight;
     var b = bounds(w);
-    lensR = Math.round(Math.max(96, Math.min(190, Math.min(w, h) * 0.2)));
+    lensR = Math.round(Math.max(88, Math.min(170, Math.min(w, h) * 0.18)));
     lensX = (0.5 + cx * b.sx) * w;
     lensY = (b.y0 + cy * b.sy) * h;
     tilt.style.setProperty('--x', lensX.toFixed(1) + 'px');
