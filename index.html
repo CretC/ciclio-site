@@ -198,7 +198,8 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
   cursor: default;
   font-family: inherit;
 }
-.pill.primary { background: var(--accent); color: #fff; box-shadow: 0 12px 40px rgba(75, 97, 224, 0.45); }
+.pill.primary { background: var(--accent); color: #fff; box-shadow: 0 12px 40px rgba(75, 97, 224, 0.45); cursor: pointer; text-align: center; }
+.pill.primary:hover { color: #fff; filter: brightness(1.1); }
 .pill.ghost { background: rgba(11, 14, 26, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--fg); border: 1px solid var(--line); cursor: pointer; }
 .pill.ghost[hidden] { display: none; }
 .switch {
@@ -325,13 +326,9 @@ footer .in span { margin-right: auto; }
       <span data-l="en"><span class="hint-pointer">Move your cursor around.</span><span class="hint-tilt">Drag the lens, or turn on motion.</span> Ciclio keeps an eye on all of them, so you don’t have to.</span>
     </p>
     <div class="cta">
-      <span class="pill primary">
-        <span data-l="ro">În curând pe Google Play</span>
-        <span data-l="en">Coming soon to Google Play</span>
-      </span>
-      <a class="pill ghost" href="testeri/">
-        <span data-l="ro">Vreau să testez</span>
-        <span data-l="en">I want to test it</span>
+      <a class="pill primary" href="testeri/">
+        <span data-l="ro">În curând pe Google Play · testează-l acum</span>
+        <span data-l="en">Coming soon to Google Play · try it now</span>
       </a>
       <a class="pill ghost" href="#detalii">
         <span data-l="ro">Detalii</span>
