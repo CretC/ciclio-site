@@ -99,7 +99,9 @@ p { margin: 12px 0 0; color: var(--muted); }
   }
   var saved = null;
   try { saved = localStorage.getItem('lang'); } catch (e) { /* storage blocked */ }
-  setLang(q.get('lang') === 'en' || saved === 'en' ? 'en' : 'ro');
+  // The email's language wins: it is the one the person signed up in.
+  var fromLink = q.get('lang');
+  setLang(fromLink === 'en' || fromLink === 'ro' ? fromLink : saved === 'en' ? 'en' : 'ro');
   document.querySelector('.langs').addEventListener('click', function (e) {
     var btn = e.target.closest('button');
     if (!btn) return;
