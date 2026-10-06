@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ciclio — testează aplicația înaintea tuturor</title>
+<meta name="description" content="Ciclio ține într-un singur loc ITP-ul, RCA-ul, rovinieta, asigurarea casei, revizia centralei și actele. Înscrie-te ca tester înainte de lansarea în Google Play.">
+<meta name="theme-color" content="#0b0e1a">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Crect width='1024' height='1024' rx='230' fill='%234B61E0'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='104' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M716 308A288 288 0 1 0 716 716'/%3E%3Cpath d='M392 524L488 616L664 432'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+/* Tester sign-up (PLAN.md B0e/B18). Same look as the landing page; the form
+   is drawn as one of the app's deadline cards — dot, title, status line —
+   and turns into a "done" chip once sent. The only request the page makes is
+   the sign-up itself, to Supabase, on submit. No fonts, no analytics. */
+:root {
+  --bg: #0b0e1a;
+  --fg: #eef0fa;
+  --muted: #b3bad6;
+  --accent: #4b61e0;
+  --accent-soft: #aebaff;
+  --card: rgba(255, 255, 255, 0.05);
+  --line: rgba(255, 255, 255, 0.12);
+  --red: #e05555;
+  --amber: #d9902a;
+  --green: #2fae74;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); }
+body {
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+a { color: var(--accent-soft); }
+a:hover { color: #fff; }
+/* !important: list items and the chip list set their own display. */
+html:not([lang="ro"]) [data-l="ro"], html:not([lang="en"]) [data-l="en"] { display: none !important; }
+
+/* Background: the landing's blurred deadlines, still drifting. */
+.field { position: fixed; inset: 0; z-index: 0; pointer-events: none; filter: blur(5px); opacity: 0.4; }
+.field::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 50% at 50% 40%, rgba(11, 14, 26, 0.75), transparent 75%); }
+.chip {
+  position: absolute;
+  white-space: nowrap;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  animation: sway var(--d, 8s) ease-in-out var(--delay, 0s) infinite;
+}
+.chip i, .card .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: 1px;
+  background: var(--c);
+  box-shadow: 0 0 10px var(--c);
+}
+@keyframes sway {
+  0%, 100% { translate: 0 0; }
+  33% { translate: var(--ax) -10px; }
+  66% { translate: calc(var(--ax) * -0.6) 8px; }
+}
+
+.wrap { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) 16px 56px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 21px; letter-spacing: -0.4px; color: var(--fg); text-decoration: none; }
+.langs { display: flex; gap: 4px; padding: 3px; border-radius: 999px; border: 1px solid var(--line); background: rgba(11, 14, 26, 0.6); }
+.langs button { font: inherit; font-size: 13px; font-weight: 700; color: var(--muted); background: none; border: 0; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
+.langs button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+
+h1 { margin: 9vh 0 0; font-size: clamp(34px, 7vw, 54px); line-height: 1.05; font-weight: 800; letter-spacing: -0.03em; text-wrap: balance; }
+.lead { margin: 16px 0 0; font-size: clamp(17px, 2.2vw, 19px); color: #c7cdea; text-wrap: pretty; }
+.types { margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+.types li { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); font-size: 14px; font-weight: 600; color: var(--muted); }
+
+.steps { margin: 36px 0 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 10px; }
+.steps li { counter-increment: s; display: flex; gap: 14px; align-items: baseline; color: var(--muted); }
+.steps li::before { content: counter(s); flex: none; width: 26px; height: 26px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 13px; font-weight: 800; color: #fff; background: var(--accent); transform: translateY(-1px); }
+.steps strong { color: var(--fg); }
+
+/* The form, as an app deadline card. */
+.card {
+  --c: var(--amber);
+  margin-top: 32px;
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(20, 24, 42, 0.86);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 70px rgba(75, 97, 224, 0.22);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card.ready { --c: var(--green); }
+.card .dot { transition: background 0.3s ease, box-shadow 0.3s ease; }
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.card h2 { margin: 0; font-size: 19px; letter-spacing: -0.2px; }
+.badge { font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px; color: var(--c); border: 1px solid currentColor; transition: color 0.3s ease; }
+label { display: block; margin: 18px 0 6px; font-size: 14px; font-weight: 600; color: var(--muted); }
+label small { font-weight: 500; opacity: 0.75; }
+input[type="email"], input[type="text"] {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 14px;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+input::placeholder { color: rgba(179, 186, 214, 0.5); }
+input:focus { border-color: var(--accent-soft); background: rgba(75, 97, 224, 0.08); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); }
+.seg button { font: inherit; font-size: 15px; font-weight: 700; color: var(--muted); background: none; border: 0; padding: 10px 8px; border-radius: 10px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.note { margin: 10px 0 0; font-size: 14px; color: #ffd27a; }
+.note[hidden] { display: none; }
+
+.consent { display: flex; gap: 10px; align-items: flex-start; margin: 20px 0 0; font-weight: 500; color: var(--muted); cursor: pointer; }
+.consent input { flex: none; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); }
+.send {
+  margin-top: 18px;
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: 0;
+  border-radius: 14px;
+  padding: 15px 20px;
+  cursor: pointer;
+  box-shadow: 0 12px 40px rgba(75, 97, 224, 0.45);
+}
+.send:disabled { opacity: 0.55; cursor: default; box-shadow: none; }
+.fine { margin: 12px 0 0; font-size: 13px; color: var(--muted); opacity: 0.85; }
+.error { margin: 12px 0 0; font-size: 14px; color: #ff9a9a; }
+.error[hidden] { display: none; }
+
+/* Sent: the card collapses into a chip, like a renewed deadline. */
+.done { display: none; margin-top: 32px; text-align: center; }
+.sent form { display: none; }
+.sent .done { display: block; animation: rise 0.6s cubic-bezier(.2, .8, .2, 1); }
+.done .chip { position: static; display: inline-block; animation: none; font-size: 17px; padding: 12px 20px; --c: var(--green); border-color: rgba(47, 174, 116, 0.5); box-shadow: 0 0 40px rgba(47, 174, 116, 0.25); }
+.done .chip span { opacity: 0.75; font-weight: 600; }
+.done p { margin: 16px auto 0; max-width: 440px; color: var(--muted); }
+@keyframes rise { from { opacity: 0; transform: translateY(14px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .chip, .sent .done { animation: none; } }
+</style>
+</head>
+<body>
+
+<div class="field" id="field" aria-hidden="true"></div>
+
+<div class="wrap">
+  <nav class="top">
+    <a class="brand" href="../">
+      <svg width="34" height="34" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="230" fill="#4B61E0"/><g fill="none" stroke="#fff" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"><path d="M716 308A288 288 0 1 0 716 716"/><path d="M392 524L488 616L664 432"/></g></svg>
+      Ciclio
+    </a>
+    <div class="langs" role="group" aria-label="Limba / Language">
+      <button type="button" data-set="ro" aria-pressed="true">RO</button>
+      <button type="button" data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </nav>
+
+  <h1>
+    <span data-l="ro">Folosește Ciclio înaintea tuturor.</span>
+    <span data-l="en">Use Ciclio before anyone else.</span>
+  </h1>
+  <p class="lead">
+    <span data-l="ro">Toate scadențele pe care altfel le ții în cap, prin acte sau prin mailuri, într-un singur loc: le vezi dintr-o privire, iar aplicația îți dă un semn când se apropie una. Fără cont, fără reclame, datele rămân pe telefonul tău.</span>
+    <span data-l="en">All the deadlines you’d otherwise keep in your head, your paperwork or your inbox, in one place: see them at a glance, and get a heads-up when one is coming up. No account, no ads, your data stays on your phone.</span>
+  </p>
+  <ul class="types" data-l="ro">
+    <li>ITP</li><li>RCA</li><li>Rovinietă</li><li>Asigurare locuință</li><li>Revizie centrală</li><li>Verificare gaz</li><li>Buletin, pașaport</li><li>Garanții</li>
+  </ul>
+  <ul class="types" data-l="en">
+    <li>Car inspection</li><li>Car insurance</li><li>Road vignette</li><li>Home insurance</li><li>Boiler service</li><li>Gas check</li><li>ID, passport</li><li>Warranties</li>
+  </ul>
+
+  <ol class="steps">
+    <li data-l="ro"><span><strong>Îți lași adresa de Gmail</strong> aici, cea cu care intri în Play Store.</span></li>
+    <li data-l="en"><span><strong>Leave your Gmail address</strong> here, the one you use for the Play Store.</span></li>
+    <li data-l="ro"><span><strong>În câteva zile primești un link.</strong> Instalezi aplicația și adaugi ceva real, de exemplu mașina sau casa.</span></li>
+    <li data-l="en"><span><strong>In a few days you get a link.</strong> Install the app and add something real, like your car or your home.</span></li>
+    <li data-l="ro"><span><strong>O ții instalată două săptămâni.</strong> Google cere asta de la 12 oameni înainte de publicare. Orice părere ne ajută.</span></li>
+    <li data-l="en"><span><strong>Keep it installed for two weeks.</strong> Google requires 12 people to do this before launch. Any feedback helps.</span></li>
+  </ol>
+
+  <div id="box">
+    <form class="card" id="form" novalidate>
+      <div class="card-head">
+        <h2><span class="dot"></span><span data-l="ro">Testare Ciclio</span><span data-l="en">Ciclio testing</span></h2>
+        <span class="badge" id="badge"><span data-l="ro">te așteptăm</span><span data-l="en">waiting for you</span></span>
+      </div>
+
+      <label for="email"><span data-l="ro">Adresa de Gmail</span><span data-l="en">Gmail address</span></label>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="nume@gmail.com" required>
+
+      <label for="name"><span data-l="ro">Cum te cheamă</span><span data-l="en">Your name</span> <small><span data-l="ro">(opțional)</span><span data-l="en">(optional)</span></small></label>
+      <input id="name" name="name" type="text" autocomplete="name" maxlength="80">
+
+      <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+
+      <label id="phoneLabel"><span data-l="ro">Telefonul pe care îl folosești</span><span data-l="en">The phone you use</span></label>
+      <div class="seg" role="group" aria-labelledby="phoneLabel">
+        <button type="button" data-phone="android" aria-pressed="true">Android</button>
+        <button type="button" data-phone="ios" aria-pressed="false">iPhone</button>
+      </div>
+      <p class="note" id="iosNote" hidden>
+        <span data-l="ro">Deocamdată Ciclio e doar pe Android. Dacă cineva din casă are Android, lasă adresa lui de Gmail. Ajută la fel de mult.</span>
+        <span data-l="en">Ciclio is Android-only for now. If someone at home uses Android, leave their Gmail address instead. It helps just as much.</span>
+      </p>
+
+      <label class="consent">
+        <input type="checkbox" id="consent" required>
+        <span data-l="ro">Sunt de acord ca adresa mea să fie folosită pentru invitația la testare, cum scrie <a href="../confidentialitate/#testeri">aici</a>. Am cel puțin 16 ani.</span>
+        <span data-l="en">I agree that my address is used for the testing invite, as described <a href="../confidentialitate/#testers">here</a>. I am at least 16.</span>
+      </label>
+
+      <button class="send" type="submit" id="send">
+        <span data-l="ro">Vreau să testez</span><span data-l="en">Count me in</span>
+      </button>
+      <p class="error" id="error" hidden></p>
+      <p class="fine">
+        <span data-l="ro">Operator: Cret Catalin Flaviu, contact@ciclio.app. Adresa e folosită doar pentru invitația de testare: o adăugăm în Google Play Console, ca să poți instala aplicația. E stocată în UE (Supabase, Frankfurt), nu e publică și o ștergem după lansare. Îți poți retrage acordul oricând, cu un e-mail. <a href="../confidentialitate/#testeri">Toate detaliile și drepturile tale</a>.</span>
+        <span data-l="en">Controller: Cret Catalin Flaviu, contact@ciclio.app. Your address is used only for the testing invite: we add it in Google Play Console so you can install the app. It is stored in the EU (Supabase, Frankfurt), is not public, and is deleted after launch. You can withdraw consent any time by email. <a href="../confidentialitate/#testers">Full details and your rights</a>.</span>
+      </p>
+    </form>
+
+    <div class="done" aria-live="polite">
+      <div class="chip"><i></i><span data-l="ro">Testare Ciclio</span><span data-l="en">Ciclio testing</span> · <span data-l="ro">ești pe listă</span><span data-l="en">you’re on the list</span></div>
+      <p>
+        <span data-l="ro">Mulțumim! Link-ul de instalare vine pe e-mail în câteva zile.</span>
+        <span data-l="en">Thank you! The install link will reach your inbox in a few days.</span>
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Ciclio</span>
+    <a href="../confidentialitate/"><span data-l="ro">Confidențialitate</span><span data-l="en">Privacy policy</span></a>
+    <a href="mailto:contact@ciclio.app">contact@ciclio.app</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // Publishable key: public by design (it ships in the APK too). The table
+  // accepts inserts only; RLS and column grants keep the list unreadable.
+  var ENDPOINT = 'https://hfyzmszhkmnonscrusib.supabase.co/rest/v1/tester_signups';
+  var KEY = 'sb_publishable_atA8KKS8iy2shIDAWdEiqw_cQyfvsyR';
+
+  var root = document.documentElement;
+  var form = document.getElementById('form');
+  var box = document.getElementById('box');
+  var email = document.getElementById('email');
+  var nameInput = document.getElementById('name');
+  var trap = document.getElementById('website');
+  var sendBtn = document.getElementById('send');
+  var errorBox = document.getElementById('error');
+  var iosNote = document.getElementById('iosNote');
+  var phone = 'android';
+
+  var TITLES = {
+    ro: 'Ciclio — testează aplicația înaintea tuturor',
+    en: 'Ciclio — try the app before anyone else'
+  };
+  var ERRORS = {
+    ro: { email: 'Adresa nu pare completă. Verific-o o dată.', consent: 'Bifează acordul de mai sus ca să te putem înscrie.', net: 'N-a mers trimiterea. Mai încearcă o dată sau scrie-ne la contact@ciclio.app.' },
+    en: { email: 'That address doesn’t look complete. Give it another look.', consent: 'Tick the consent box above so we can sign you up.', net: 'Sending didn’t work. Try again, or write to contact@ciclio.app.' }
+  };
+  function setLang(lang) {
+    root.lang = lang;
+    document.title = TITLES[lang];
+    var b = document.querySelectorAll('.langs button');
+    for (var i = 0; i < b.length; i++) b[i].setAttribute('aria-pressed', String(b[i].getAttribute('data-set') === lang));
+    renderField();
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) { /* storage blocked */ }
+  document.querySelector('.langs').addEventListener('click', function (e) {
+    var lang = e.target.closest('button') && e.target.closest('button').getAttribute('data-set');
+    if (!lang) return;
+    try { localStorage.setItem('lang', lang); } catch (err) { /* storage blocked */ }
+    setLang(lang);
+  });
+
+  // Background deadlines, the same household as on the landing page.
+  var ITEMS = [
+    ['ITP · în 12 zile', 'Inspection · in 12 days', 'amber'],
+    ['RCA · în 3 zile', 'Car insurance · in 3 days', 'amber'],
+    ['Rovinietă · restantă', 'Road vignette · overdue', 'red'],
+    ['Revizie centrală · în 2 luni', 'Boiler service · in 2 months', 'green'],
+    ['Asigurare locuință · în 4 luni', 'Home insurance · in 4 months', 'green'],
+    ['Pașaport · în 3 luni', 'Passport · in 3 months', 'green'],
+    ['Verificare gaz · în 2 ani', 'Gas check · in 2 years', 'green'],
+    ['Garanție frigider · în 7 luni', 'Fridge warranty · in 7 months', 'green'],
+    ['Amendă · în 9 zile', 'Fine · in 9 days', 'amber'],
+    ['Buletin · în 3 ani', 'ID card · in 3 years', 'green']
+  ];
+  function renderField() {
+    var lang = root.lang === 'en' ? 1 : 0;
+    var html = '';
+    for (var i = 0; i < ITEMS.length; i++) {
+      var left = (i % 2 ? 52 : 4) + ((i * 37) % 22);
+      var top = 6 + i * 9 + ((i * 13) % 4);
+      html += '<div class="chip" style="left:' + left + '%;top:' + top + '%;--c:var(--' + ITEMS[i][2] + ');--d:' + (7 + (i % 5)) +
+        's;--delay:-' + i * 1.3 + 's;--ax:' + (i % 2 ? '' : '-') + (12 + i * 2) + 'px"><i></i>' + ITEMS[i][lang] + '</div>';
+    }
+    document.getElementById('field').innerHTML = html;
+  }
+
+  // The card's dot and badge follow the address: amber until it looks
+  // complete, green when it's ready to send.
+  var VALID = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
+  var badge = document.getElementById('badge');
+  function refresh() {
+    var ok = VALID.test(email.value.trim());
+    form.classList.toggle('ready', ok);
+    badge.innerHTML = ok
+      ? '<span data-l="ro">gata de trimis</span><span data-l="en">ready to send</span>'
+      : '<span data-l="ro">te așteptăm</span><span data-l="en">waiting for you</span>';
+  }
+  email.addEventListener('input', function () { refresh(); errorBox.hidden = true; });
+
+  document.querySelector('.seg').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    phone = btn.getAttribute('data-phone');
+    var all = this.querySelectorAll('button');
+    for (var i = 0; i < all.length; i++) all[i].setAttribute('aria-pressed', String(all[i] === btn));
+    iosNote.hidden = phone !== 'ios';
+  });
+
+  function showError(kind) {
+    errorBox.textContent = ERRORS[root.lang === 'en' ? 'en' : 'ro'][kind];
+    errorBox.hidden = false;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var address = email.value.trim();
+    if (!VALID.test(address)) { showError('email'); email.focus(); return; }
+    if (!document.getElementById('consent').checked) { showError('consent'); return; }
+    // Bots fill the hidden field; pretend it worked and send nothing.
+    if (trap.value) { box.classList.add('sent'); return; }
+    sendBtn.disabled = true;
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'apikey': KEY,
+        'Authorization': 'Bearer ' + KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        email: address,
+        name: nameInput.value.trim() || null,
+        has_android: phone === 'android',
+        lang: root.lang === 'en' ? 'en' : 'ro'
+      })
+    }).then(function (res) {
+      // 409: this address already signed up — same outcome for the visitor.
+      if (res.ok || res.status === 409) {
+        box.classList.add('sent');
+      } else {
+        sendBtn.disabled = false;
+        showError('net');
+      }
+    }).catch(function () {
+      sendBtn.disabled = false;
+      showError('net');
+    });
+  });
+
+  setLang(saved === 'en' || (!saved && (navigator.language || 'ro').toLowerCase().indexOf('ro') !== 0) ? 'en' : 'ro');
+  refresh();
+})();
+</script>
+</body>
+</html>
