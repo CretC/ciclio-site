@@ -327,10 +327,10 @@ footer .in span { margin-right: auto; }
     </p>
     <div class="cta">
       <a class="pill primary" href="testeri/">
-        <span data-l="ro">În curând pe Google Play · testează-l acum</span>
-        <span data-l="en">Coming soon to Google Play · try it now</span>
+        <span data-l="ro">Vreau să fiu tester</span>
+        <span data-l="en">I want to be a tester</span>
       </a>
-      <a class="pill ghost" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
+      <a class="pill ghost" id="playLink" href="testeri/">
         <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
         <span data-l="ro">Ciclio pe Google Play</span>
         <span data-l="en">Ciclio on Google Play</span>
@@ -780,6 +780,22 @@ footer .in span { margin-right: auto; }
     ring.style.transform = 'translate3d(' + (w0 / 2) + 'px,' + (h0 / 2) + 'px,0)';
   } else {
     start();
+  }
+})();
+
+// "Ciclio on Google Play": while the app is in closed testing, the store page
+// only opens for testers. Someone who signed up from this browser goes
+// straight to Play; anyone else lands on the sign-up form. The list itself is
+// never queried — that would let anyone check whether an address signed up.
+(function () {
+  var link = document.getElementById("playLink");
+  if (!link) return;
+  var tester = false;
+  try { tester = localStorage.getItem("ciclioTester") === "1"; } catch (e) { /* storage blocked */ }
+  if (tester) {
+    link.href = "https://play.google.com/store/apps/details?id=app.ciclio";
+    link.target = "_blank";
+    link.rel = "noopener";
   }
 })();
 </script>

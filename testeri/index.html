@@ -396,6 +396,8 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
 
   // The closing chip matches what was signed up for.
   function done() {
+    // Lets the landing page send this browser straight to the Play listing.
+    if (testing.checked) { try { localStorage.setItem('ciclioTester', '1'); } catch (e) { /* storage blocked */ } }
     var kind = testing.checked ? 'testing' : phone === 'ios' ? 'ios' : 'news';
     var all = document.querySelectorAll('[data-done]');
     for (var i = 0; i < all.length; i++) all[i].hidden = all[i].getAttribute('data-done') !== kind;
