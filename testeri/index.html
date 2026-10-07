@@ -157,6 +157,10 @@ input:focus { border-color: var(--accent-soft); background: rgba(75, 97, 224, 0.
 .done .chip { position: static; display: inline-block; animation: none; font-size: 17px; padding: 12px 20px; --c: var(--green); border-color: rgba(47, 174, 116, 0.5); box-shadow: 0 0 40px rgba(47, 174, 116, 0.25); }
 .done .chip span { opacity: 0.75; font-weight: 600; }
 .done p { margin: 16px auto 0; max-width: 440px; color: var(--muted); }
+.join { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+.joinBtn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--accent, #4B61E0); color: #fff; font-weight: 700; text-decoration: none; }
+.joinBtn:hover { filter: brightness(1.1); color: #fff; }
+.joinBtn.ghost { background: transparent; color: inherit; border: 1px solid rgba(255, 255, 255, 0.25); }
 @keyframes rise { from { opacity: 0; transform: translateY(14px) scale(0.96); } to { opacity: 1; transform: none; } }
 
 footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
@@ -197,8 +201,8 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
   <ol class="steps">
     <li data-l="ro"><span><strong>Îți lași adresa de Gmail</strong> aici, cea cu care intri în Play Store.</span></li>
     <li data-l="en"><span><strong>Leave your Gmail address</strong> here, the one you use for the Play Store.</span></li>
-    <li data-l="ro"><span><strong>În câteva zile primești un link.</strong> Instalezi aplicația și adaugi ceva real, de exemplu mașina sau casa.</span></li>
-    <li data-l="en"><span><strong>In a few days you get a link.</strong> Install the app and add something real, like your car or your home.</span></li>
+    <li data-l="ro"><span><strong>Intri în testare și instalezi aplicația</strong>, cu butoanele care apar după înscriere. Apoi adaugi ceva real, de exemplu mașina sau casa.</span></li>
+    <li data-l="en"><span><strong>Join the testing and install the app</strong> with the buttons shown after you sign up. Then add something real, like your car or your home.</span></li>
     <li data-l="ro"><span><strong>O ții instalată două săptămâni.</strong> Google cere asta de la 12 oameni înainte de publicare. Orice părere ne ajută.</span></li>
     <li data-l="en"><span><strong>Keep it installed for two weeks.</strong> Google requires 12 people to do this before launch. Any feedback helps.</span></li>
   </ol>
@@ -254,8 +258,20 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
       <div data-done="testing">
         <div class="chip"><i></i><span data-l="ro">Testare Ciclio</span><span data-l="en">Ciclio testing</span> · <span data-l="ro">ești pe listă</span><span data-l="en">you’re on the list</span></div>
         <p>
-          <span data-l="ro">Mulțumim! Link-ul de instalare vine pe e-mail în câteva zile.</span>
-          <span data-l="en">Thank you! The install link will reach your inbox in a few days.</span>
+          <span data-l="ro">Mulțumim! Mai ai doi pași, de pe telefon, cu același cont Google: intră în testare, apoi instalează aplicația din Play.</span>
+          <span data-l="en">Thank you! Two more steps, from your phone, with the same Google account: join the testing, then install the app from Play.</span>
+        </p>
+        <div class="join">
+          <a class="joinBtn" href="https://play.google.com/apps/testing/app.ciclio" target="_blank" rel="noopener">
+            <span data-l="ro">1 · Intră în testare</span><span data-l="en">1 · Join the testing</span>
+          </a>
+          <a class="joinBtn ghost" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
+            <span data-l="ro">2 · Instalează din Google Play</span><span data-l="en">2 · Install from Google Play</span>
+          </a>
+        </div>
+        <p class="fine">
+          <span data-l="ro">Dacă Play spune că nu ai acces, adresa ta nu a fost încă adăugată: revino în 1–2 zile, primești și un e-mail.</span>
+          <span data-l="en">If Play says you don’t have access, your address hasn’t been added yet: come back in 1–2 days, you’ll also get an email.</span>
         </p>
       </div>
       <div data-done="ios">
