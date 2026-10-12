@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ciclio — spune-ne ce crezi</title>
+<meta name="description" content="Două rânduri despre Ciclio: ce merge, ce te încurcă, ce-ți lipsește. Anonim.">
+<meta name="theme-color" content="#0b0e1a">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Crect width='1024' height='1024' rx='230' fill='%234B61E0'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='104' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M716 308A288 288 0 1 0 716 716'/%3E%3Cpath d='M392 524L488 616L664 432'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="../nav.css">
+<style>
+/* Anonymous feedback (DECISIONS.md, 2026-10-12). Drawn as an app deadline
+   card whose dot takes the colour of the rating. The testers' email links
+   here with ?nota=1..5&v=<version>&src=email, so the face they tapped in the
+   email is already chosen; sending still takes a deliberate tap, so a link
+   scanner that opens the URL never leaves a rating. One request, on submit,
+   to Supabase. No fonts, no analytics, no identity. */
+:root {
+  --bg: #0b0e1a; --fg: #eef0fa; --muted: #b3bad6; --accent: #4b61e0; --accent-soft: #aebaff;
+  --card: rgba(255, 255, 255, 0.05); --line: rgba(255, 255, 255, 0.12);
+  --red: #e05555; --amber: #d9902a; --green: #2fae74;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); }
+body { font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+a { color: var(--accent-soft); }
+a:hover { color: #fff; }
+html:not([lang="ro"]) [data-l="ro"], html:not([lang="en"]) [data-l="en"] { display: none !important; }
+.wrap { max-width: 640px; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) 16px 56px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 21px; letter-spacing: -0.4px; color: var(--fg); text-decoration: none; }
+.langs { display: flex; gap: 4px; padding: 3px; border-radius: 999px; border: 1px solid var(--line); background: rgba(11, 14, 26, 0.6); }
+.langs button { font: inherit; font-size: 13px; font-weight: 700; color: var(--muted); background: none; border: 0; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
+.langs button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+
+h1 { margin: 8vh 0 0; font-size: clamp(32px, 6.5vw, 50px); line-height: 1.06; font-weight: 800; letter-spacing: -0.03em; text-wrap: balance; }
+.lead { margin: 14px 0 0; font-size: 18px; color: #c7cdea; text-wrap: pretty; }
+
+.card {
+  --c: var(--accent-soft);
+  margin-top: 30px; padding: 22px; border-radius: 22px;
+  background: rgba(20, 24, 42, 0.9); border: 1px solid var(--line);
+  box-shadow: 0 24px 70px rgba(75, 97, 224, 0.22);
+  transition: box-shadow 0.3s ease;
+}
+.card[data-r="1"], .card[data-r="2"] { --c: var(--red); }
+.card[data-r="3"] { --c: var(--amber); }
+.card[data-r="4"], .card[data-r="5"] { --c: var(--green); }
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.card h2 { margin: 0; font-size: 19px; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 9px; vertical-align: 1px; background: var(--c); box-shadow: 0 0 10px var(--c); transition: background 0.3s ease, box-shadow 0.3s ease; }
+.badge { font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px; color: var(--c); border: 1px solid currentColor; transition: color 0.3s ease; }
+
+.faces { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 18px; }
+.faces button {
+  font: inherit; font-size: clamp(26px, 8vw, 34px); line-height: 1;
+  padding: 12px 0 10px; border-radius: 16px; cursor: pointer;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line);
+  filter: grayscale(0.85); opacity: 0.7;
+  transition: transform 0.15s ease, filter 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+}
+.faces button small { display: block; margin-top: 6px; font-size: 11px; font-weight: 700; color: var(--muted); }
+.faces button:hover { filter: none; opacity: 1; transform: translateY(-2px); }
+.faces button[aria-checked="true"] { filter: none; opacity: 1; border-color: var(--c); background: rgba(255, 255, 255, 0.08); transform: scale(1.06); }
+.faces button:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+
+label { display: block; margin: 20px 0 8px; font-size: 15px; font-weight: 700; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.tags button {
+  font: inherit; font-size: 13px; font-weight: 700; color: var(--muted);
+  padding: 5px 12px; border-radius: 999px; cursor: pointer;
+  background: none; border: 1px dashed var(--line);
+}
+.tags button[aria-pressed="true"] { color: #fff; border-style: solid; border-color: var(--accent-soft); background: rgba(75, 97, 224, 0.3); }
+textarea {
+  width: 100%; min-height: 120px; resize: vertical;
+  font: inherit; font-size: 16px; color: var(--fg);
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); border-radius: 14px;
+  padding: 13px 14px; outline: none;
+}
+textarea:focus { border-color: var(--accent-soft); background: rgba(75, 97, 224, 0.08); }
+textarea::placeholder { color: rgba(179, 186, 214, 0.55); }
+.count { margin: 4px 2px 0; text-align: right; font-size: 12px; color: var(--muted); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.send {
+  margin-top: 14px; width: 100%; font: inherit; font-size: 16px; font-weight: 700; color: #fff;
+  background: var(--accent); border: 0; border-radius: 14px; padding: 15px 20px; cursor: pointer;
+  box-shadow: 0 12px 40px rgba(75, 97, 224, 0.45);
+}
+.send:disabled { opacity: 0.5; cursor: default; box-shadow: none; }
+.fine { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+.error { margin: 12px 0 0; font-size: 14px; color: #ff9a9a; }
+.error[hidden] { display: none; }
+
+.done { display: none; margin-top: 32px; text-align: center; }
+.sent form { display: none; }
+.sent .done { display: block; animation: rise 0.6s cubic-bezier(.2, .8, .2, 1); }
+.chip { display: inline-block; padding: 12px 20px; border-radius: 999px; font-size: 17px; font-weight: 700; border: 1px solid rgba(47, 174, 116, 0.5); background: rgba(255, 255, 255, 0.06); box-shadow: 0 0 40px rgba(47, 174, 116, 0.25); }
+.chip i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; background: var(--green); box-shadow: 0 0 10px var(--green); }
+.done > p { margin: 16px auto 0; max-width: 460px; color: var(--muted); }
+.invite { margin: 28px auto 0; max-width: 460px; padding: 20px; border-radius: 20px; border: 1px dashed var(--line); text-align: left; }
+.invite strong { display: block; font-size: 17px; }
+.invite p { margin: 6px 0 0; color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.pill { display: inline-flex; align-items: center; min-height: 46px; padding: 0 20px; border-radius: 999px; font: inherit; font-weight: 700; font-size: 15px; text-decoration: none; cursor: pointer; border: 0; background: var(--accent); color: #fff; }
+.pill.ghost { background: transparent; color: var(--fg); border: 1px solid rgba(255, 255, 255, 0.25); }
+@keyframes rise { from { opacity: 0; transform: translateY(14px) scale(0.96); } to { opacity: 1; transform: none; } }
+footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .sent .done, .faces button { animation: none; transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a class="brand" href="../">
+      <svg width="34" height="34" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="230" fill="#4B61E0"/><g fill="none" stroke="#fff" stroke-width="104" stroke-linecap="round" stroke-linejoin="round"><path d="M716 308A288 288 0 1 0 716 716"/><path d="M392 524L488 616L664 432"/></g></svg>
+      Ciclio
+    </a>
+    <div class="menu">
+      <a href="../noutati/"><span data-l="ro">Noutăți</span><span data-l="en">What’s new</span></a>
+      <a href="../testeri/"><span data-l="ro">Testare</span><span data-l="en">Testing</span></a>
+      <a href="../feedback/" aria-current="page">Feedback</a>
+    </div>
+    <div class="langs" role="group" aria-label="Limba / Language">
+      <button type="button" data-set="ro" aria-pressed="true">RO</button>
+      <button type="button" data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </nav>
+
+  <h1><span data-l="ro">Cum îți merge cu Ciclio?</span><span data-l="en">How’s Ciclio working for you?</span></h1>
+  <p class="lead">
+    <span data-l="ro">Fiecare răspuns ajunge la mine și îl citesc. O față și, dacă ai chef, două rânduri. Durează 20 de secunde.</span>
+    <span data-l="en">Every answer reaches me and I read it. One face and, if you feel like it, two lines. Takes 20 seconds.</span>
+  </p>
+
+  <div id="box">
+    <form class="card" id="form" novalidate>
+      <div class="card-head">
+        <h2><span class="dot"></span><span data-l="ro">Părerea ta</span><span data-l="en">Your take</span></h2>
+        <span class="badge" id="badge"></span>
+      </div>
+
+      <div class="faces" role="radiogroup" aria-label="Nota / Rating" id="faces">
+        <button type="button" role="radio" aria-checked="false" data-r="1">😣<small><span data-l="ro">deloc</span><span data-l="en">not at all</span></small></button>
+        <button type="button" role="radio" aria-checked="false" data-r="2">😕<small><span data-l="ro">greu</span><span data-l="en">hard</span></small></button>
+        <button type="button" role="radio" aria-checked="false" data-r="3">😐<small><span data-l="ro">merge</span><span data-l="en">okay</span></small></button>
+        <button type="button" role="radio" aria-checked="false" data-r="4">🙂<small><span data-l="ro">bine</span><span data-l="en">good</span></small></button>
+        <button type="button" role="radio" aria-checked="false" data-r="5">🤩<small><span data-l="ro">super</span><span data-l="en">great</span></small></button>
+      </div>
+
+      <label for="msg" id="question"></label>
+      <div class="tags" id="tags" role="group" aria-label="Despre ce / About what">
+        <button type="button" data-tag="notificari" aria-pressed="false"><span data-l="ro">Notificări</span><span data-l="en">Reminders</span></button>
+        <button type="button" data-tag="adaugare" aria-pressed="false"><span data-l="ro">Adăugare</span><span data-l="en">Adding</span></button>
+        <button type="button" data-tag="bunuri" aria-pressed="false"><span data-l="ro">Bunuri</span><span data-l="en">Assets</span></button>
+        <button type="button" data-tag="aspect" aria-pressed="false"><span data-l="ro">Aspect</span><span data-l="en">Look</span></button>
+        <button type="button" data-tag="lipseste" aria-pressed="false"><span data-l="ro">Îmi lipsește ceva</span><span data-l="en">Something’s missing</span></button>
+      </div>
+      <textarea id="msg" maxlength="1900"></textarea>
+      <p class="count"><span id="count">0</span> / 1900</p>
+
+      <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" type="text" tabindex="-1" autocomplete="off"></div>
+
+      <button class="send" type="submit" id="send" disabled>
+        <span data-l="ro">Trimite</span><span data-l="en">Send</span>
+      </button>
+      <p class="error" id="error" hidden></p>
+      <p class="fine">
+        <span data-l="ro">Anonim: nu cerem nume, e-mail sau telefon. Te rog nu scrie date personale (numărul mașinii, adresa). Dacă vrei un răspuns, scrie-mi la <a href="mailto:contact@ciclio.app">contact@ciclio.app</a>. Textul stă în UE (Supabase, Frankfurt) un an, apoi se șterge singur. <a href="../confidentialitate/#feedback">Detalii</a>.</span>
+        <span data-l="en">Anonymous: we don’t ask for your name, email or phone. Please don’t include personal details (number plates, addresses). If you’d like a reply, write to <a href="mailto:contact@ciclio.app">contact@ciclio.app</a>. The text is stored in the EU (Supabase, Frankfurt) for a year, then deleted automatically. <a href="../confidentialitate/#feedback-en">Details</a>.</span>
+      </p>
+    </form>
+
+    <div class="done" aria-live="polite">
+      <div class="chip"><i></i><span data-l="ro">Primit · mulțumesc!</span><span data-l="en">Received · thank you!</span></div>
+      <p>
+        <span data-l="ro">Ce s-a schimbat datorită unor mesaje ca al tău vezi la <a href="../noutati/">Noutăți</a>.</span>
+        <span data-l="en">See what changed thanks to messages like yours under <a href="../noutati/">What’s new</a>.</span>
+      </p>
+      <div class="invite">
+        <strong><span data-l="ro">Știi pe cineva care uită de ITP?</span><span data-l="en">Know someone who forgets their car inspection?</span></strong>
+        <p><span data-l="ro">Încă testăm înainte de lansare. Un tester în plus ne ajută mai mult decât orice.</span><span data-l="en">We’re still testing before launch. One more tester helps more than anything.</span></p>
+        <div class="row">
+          <button type="button" class="pill" id="share"><span data-l="ro">Trimite-i invitația</span><span data-l="en">Send them the invite</span></button>
+          <a class="pill ghost" href="../testeri/"><span data-l="ro">Vezi pagina de testare</span><span data-l="en">See the testing page</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Ciclio</span>
+    <a href="../confidentialitate/"><span data-l="ro">Confidențialitate</span><span data-l="en">Privacy policy</span></a>
+    <a href="mailto:contact@ciclio.app">contact@ciclio.app</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // Publishable key: public by design (it ships in the APK too). The table
+  // accepts inserts only; RLS and column grants keep it unreadable.
+  var ENDPOINT = 'https://hfyzmszhkmnonscrusib.supabase.co/rest/v1/feedback';
+  var KEY = 'sb_publishable_atA8KKS8iy2shIDAWdEiqw_cQyfvsyR';
+  var INVITE_URL = 'https://ciclio.app/testeri/';
+
+  var root = document.documentElement;
+  var form = document.getElementById('form');
+  var box = document.getElementById('box');
+  var faces = document.getElementById('faces');
+  var msg = document.getElementById('msg');
+  var trap = document.getElementById('website');
+  var sendBtn = document.getElementById('send');
+  var errorBox = document.getElementById('error');
+  var badge = document.getElementById('badge');
+  var question = document.getElementById('question');
+  var count = document.getElementById('count');
+
+  var params = new URLSearchParams(location.search);
+  var rating = Number(params.get('nota')) || 0;
+  if (rating < 1 || rating > 5) rating = 0;
+  var version = /^\d{1,2}\.\d{1,2}\.\d{1,3}$/.test(params.get('v') || '') ? params.get('v') : null;
+  var source = params.get('src') === 'email' ? 'email' : 'site';
+  var tags = [];
+
+  var T = {
+    ro: {
+      title: 'Ciclio — spune-ne ce crezi',
+      badge: ['alege o față', 'te-a încurcat', 'te-a încurcat', 'pe jumătate', 'merge bine', 'îți place'],
+      question: ['Ce vrei să ne spui?', 'Ce te-a încurcat?', 'Unde te-ai împotmolit?', 'Ce ar face-o mai bună?', 'Ce ți-ar plăcea în plus?', 'Ce-ți place cel mai mult?'],
+      placeholder: 'Scrie liber, chiar și un cuvânt…',
+      errors: { empty: 'Alege o față sau scrie câteva cuvinte.', net: 'N-a mers trimiterea. Mai încearcă o dată sau scrie-mi la contact@ciclio.app.' },
+      share: { title: 'Ciclio', text: 'Testez o aplicație care ține minte ITP-ul, RCA-ul, rovinieta și restul termenelor. Caută testeri înainte de lansare:' },
+      copied: 'Link copiat'
+    },
+    en: {
+      title: 'Ciclio — tell us what you think',
+      badge: ['pick a face', 'it confused you', 'it confused you', 'halfway there', 'works well', 'you like it'],
+      question: ['What would you like to tell us?', 'What confused you?', 'Where did you get stuck?', 'What would make it better?', 'What would you add?', 'What do you like most?'],
+      placeholder: 'Write freely, even one word…',
+      errors: { empty: 'Pick a face or write a few words.', net: 'Sending didn’t work. Try again, or write to contact@ciclio.app.' },
+      share: { title: 'Ciclio', text: 'I’m testing an app that remembers car inspections, insurance, road tax and every other deadline. They’re looking for testers before launch:' },
+      copied: 'Link copied'
+    }
+  };
+  function t() { return T[root.lang === 'en' ? 'en' : 'ro']; }
+
+  function render() {
+    form.setAttribute('data-r', String(rating));
+    badge.textContent = t().badge[rating];
+    question.textContent = t().question[rating];
+    msg.placeholder = t().placeholder;
+    var all = faces.querySelectorAll('button');
+    for (var i = 0; i < all.length; i++) {
+      var on = Number(all[i].getAttribute('data-r')) === rating;
+      all[i].setAttribute('aria-checked', String(on));
+      all[i].tabIndex = on || (!rating && i === 0) ? 0 : -1;
+    }
+    sendBtn.disabled = !rating && !msg.value.trim();
+  }
+
+  function setLang(lang) {
+    root.lang = lang;
+    document.title = t().title;
+    var b = document.querySelectorAll('.langs button');
+    for (var i = 0; i < b.length; i++) b[i].setAttribute('aria-pressed', String(b[i].getAttribute('data-set') === lang));
+    render();
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) { /* storage blocked */ }
+  var fromLink = params.get('lang');
+  document.querySelector('.langs').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    var lang = btn.getAttribute('data-set');
+    try { localStorage.setItem('lang', lang); } catch (err) { /* storage blocked */ }
+    setLang(lang);
+  });
+
+  faces.addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    rating = Number(btn.getAttribute('data-r'));
+    errorBox.hidden = true;
+    render();
+  });
+  // Arrow keys move between faces, as in any radio group.
+  faces.addEventListener('keydown', function (e) {
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(e.key) < 0) return;
+    e.preventDefault();
+    var step = e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 1;
+    rating = Math.min(5, Math.max(1, (rating || 3) + step));
+    render();
+    faces.querySelector('[data-r="' + rating + '"]').focus();
+  });
+
+  document.getElementById('tags').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    var tag = btn.getAttribute('data-tag');
+    var on = btn.getAttribute('aria-pressed') !== 'true';
+    btn.setAttribute('aria-pressed', String(on));
+    tags = on ? tags.concat(tag) : tags.filter(function (x) { return x !== tag; });
+    msg.focus();
+  });
+
+  msg.addEventListener('input', function () {
+    count.textContent = String(msg.value.length);
+    errorBox.hidden = true;
+    render();
+  });
+
+  function showError(kind) {
+    errorBox.textContent = t().errors[kind];
+    errorBox.hidden = false;
+  }
+  function done() { box.classList.add('sent'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = msg.value.trim();
+    if (!rating && !text) { showError('empty'); return; }
+    // Bots fill the hidden field; pretend it worked and send nothing.
+    if (trap.value) { done(); return; }
+    // Tags travel inside the message, so /triaj sees them with no extra column.
+    var message = (tags.length ? tags.map(function (x) { return '#' + x; }).join(' ') + (text ? ' ' : '') : '') + text;
+    sendBtn.disabled = true;
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'apikey': KEY,
+        'Authorization': 'Bearer ' + KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        rating: rating || null,
+        message: message || null,
+        app_version: version,
+        source: source,
+        lang: root.lang === 'en' ? 'en' : 'ro'
+      })
+    }).then(function (res) {
+      if (res.ok) { done(); } else { sendBtn.disabled = false; showError('net'); }
+    }).catch(function () { sendBtn.disabled = false; showError('net'); });
+  });
+
+  // The invite: the phone's own share sheet (WhatsApp, Messenger…), or the
+  // link copied when the browser has none.
+  var shareBtn = document.getElementById('share');
+  shareBtn.addEventListener('click', function () {
+    var s = t().share;
+    if (navigator.share) {
+      navigator.share({ title: s.title, text: s.text, url: INVITE_URL }).catch(function () { /* dismissed */ });
+      return;
+    }
+    var copy = navigator.clipboard ? navigator.clipboard.writeText(s.text + ' ' + INVITE_URL) : Promise.reject();
+    copy.then(function () {
+      var label = shareBtn.innerHTML;
+      shareBtn.textContent = t().copied + ' ✓';
+      setTimeout(function () { shareBtn.innerHTML = label; }, 2000);
+    }).catch(function () { location.href = '../testeri/'; });
+  });
+
+  var initial = fromLink === 'en' || fromLink === 'ro' ? fromLink
+    : saved === 'en' || (!saved && (navigator.language || 'ro').toLowerCase().indexOf('ro') !== 0) ? 'en' : 'ro';
+  setLang(initial);
+})();
+</script>
+</body>
+</html>
