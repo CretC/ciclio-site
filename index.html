@@ -203,6 +203,10 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
 .pill.primary:hover { color: #fff; filter: brightness(1.1); }
 .pill.ghost { background: rgba(11, 14, 26, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--fg); border: 1px solid var(--line); cursor: pointer; }
 .pill.ghost[hidden] { display: none; }
+.store { margin: 16px auto 0; max-width: 460px; padding: 16px; border-radius: 20px; background: rgba(11, 14, 26, 0.92); border: 1px solid var(--line); pointer-events: auto; text-align: center; }
+.store[hidden] { display: none; }
+.store p { margin: 0; font-size: 15px; color: var(--muted); }
+.store-row { margin-top: 12px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .switch {
   display: inline-flex;
   align-items: center;
@@ -355,6 +359,22 @@ footer .in span { margin-right: auto; }
         <span data-l="ro">Browserul nu trimite date de la senzori. Verifică permisiunea „Senzori de mișcare” din setările site-ului (în Brave, și Shields).</span>
         <span data-l="en">Your browser is not sending motion data. Check the "Motion sensors" permission in site settings (in Brave, Shields too).</span>
       </p>
+    </div>
+    <div class="store" id="storeChoice" hidden>
+      <p>
+        <span data-l="ro">Ciclio e încă în testare închisă: în Google Play îl găsesc doar testerii.</span>
+        <span data-l="en">Ciclio is still in closed testing: only testers can find it on Google Play.</span>
+      </p>
+      <div class="store-row">
+        <a class="pill primary" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
+          <span data-l="ro">Sunt tester: deschide Google Play</span>
+          <span data-l="en">I’m a tester: open Google Play</span>
+        </a>
+        <a class="pill ghost" href="testeri/">
+          <span data-l="ro">Nu încă: mă înscriu</span>
+          <span data-l="en">Not yet: sign me up</span>
+        </a>
+      </div>
     </div>
   </div>
 </header>
@@ -792,8 +812,9 @@ footer .in span { margin-right: auto; }
 
 // "Ciclio on Google Play": while the app is in closed testing, the store page
 // only opens for testers. Someone who signed up from this browser goes
-// straight to Play; anyone else lands on the sign-up form. The list itself is
-// never queried — that would let anyone check whether an address signed up.
+// straight to Play; anyone else chooses: Play (already a tester, on another
+// browser) or the sign-up form. The list itself is never queried — that
+// would let anyone check whether an address signed up.
 (function () {
   var link = document.getElementById("playLink");
   if (!link) return;
@@ -803,7 +824,19 @@ footer .in span { margin-right: auto; }
     link.href = "https://play.google.com/store/apps/details?id=app.ciclio";
     link.target = "_blank";
     link.rel = "noopener";
+    return;
   }
+  // Anyone else gets the choice, instead of a store page that would say
+  // "item not found": a tester on a new browser still reaches Play in one tap.
+  var choice = document.getElementById("storeChoice");
+  if (!choice) return;
+  link.setAttribute("aria-expanded", "false");
+  link.setAttribute("aria-controls", "storeChoice");
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    choice.hidden = !choice.hidden;
+    link.setAttribute("aria-expanded", String(!choice.hidden));
+  });
 })();
 </script>
 </body>
