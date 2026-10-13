@@ -16,6 +16,9 @@
 .menu a:hover { color: var(--fg); background: rgba(255, 255, 255, 0.06); }
 .menu a[aria-current="page"] { color: #fff; background: rgba(75, 97, 224, 0.4); }
 @media (max-width: 560px) {
-  .menu { order: 4; flex-basis: 100%; margin: 10px 0 0; justify-content: center; gap: 6px; }
+  .menu { order: 4; flex-basis: 100%; flex-wrap: wrap; margin: 10px 0 0; justify-content: center; gap: 6px; }
   .menu a { border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); }
+}
+@media (max-width: 380px) {
+  .menu a { padding: 6px 10px; font-size: 13px; }
 }
