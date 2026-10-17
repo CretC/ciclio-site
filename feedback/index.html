@@ -159,6 +159,7 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
         <button type="button" data-tag="bunuri" aria-pressed="false"><span data-l="ro">Bunuri</span><span data-l="en">Assets</span></button>
         <button type="button" data-tag="aspect" aria-pressed="false"><span data-l="ro">Aspect</span><span data-l="en">Look</span></button>
         <button type="button" data-tag="lipseste" aria-pressed="false"><span data-l="ro">Îmi lipsește ceva</span><span data-l="en">Something’s missing</span></button>
+        <button type="button" data-tag="catalog" aria-pressed="false"><span data-l="ro">Catalog (tip sau iconiță)</span><span data-l="en">Catalog (type or icon)</span></button>
       </div>
       <textarea id="msg" maxlength="1900"></textarea>
       <p class="count"><span id="count">0</span> / 1900</p>
@@ -370,6 +371,15 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
   var initial = fromLink === 'en' || fromLink === 'ro' ? fromLink
     : saved === 'en' || (!saved && (navigator.language || 'ro').toLowerCase().indexOf('ro') !== 0) ? 'en' : 'ro';
   setLang(initial);
+
+  // The app opens the form at #catalog ("Can’t find it? Tell us"): tick that box for the person.
+  if (location.hash === '#catalog') {
+    var catalogBtn = document.querySelector('#tags [data-tag="catalog"]');
+    if (catalogBtn) {
+      catalogBtn.setAttribute('aria-pressed', 'true');
+      tags = ['catalog'];
+    }
+  }
 })();
 </script>
 </body>
