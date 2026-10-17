@@ -26,6 +26,7 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 | Pașaport UE pentru animale | Animale | Practică recomandată | o singură dată | 30 de zile, 7 zile | — | — |
 | Asigurare animal | Animale | Practică recomandată | la 1 an | 30 de zile, 7 zile, 1 zi | — | — |
 | Control veterinar | Animale | Practică recomandată | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Alt animal) | — |
+| Mentenanță | Alt bun | Practică recomandată | la 6 luni | 7 zile, 1 zi | Alt bun | — |
 | Altele | Altele | Practică recomandată | o singură dată | 30 de zile, 7 zile, 1 zi | — | — |
 
 Rândurile marcate „Practică recomandată” nu sunt obligații legale; „neverificat” înseamnă că temeiul legal nu este confirmat de un om.
