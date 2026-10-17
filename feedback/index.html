@@ -224,7 +224,8 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
   var rating = Number(params.get('nota')) || 0;
   if (rating < 1 || rating > 5) rating = 0;
   var version = /^\d{1,2}\.\d{1,2}\.\d{1,3}$/.test(params.get('v') || '') ? params.get('v') : null;
-  var source = params.get('src') === 'email' ? 'email' : 'site';
+  var src = params.get('src');
+  var source = src === 'email' || src === 'app' ? src : 'site';
   var tags = [];
 
   var T = {
