@@ -1,0 +1,35 @@
+# Ciclio
+
+> Ciclio este o aplicație Android care ține minte scadențele întregii gospodării (asigurarea locuinței, revizia centralei, buletinul, vaccinul câinelui, ITP-ul, RCA-ul) și te anunță la timp. Funcționează fără cont, fără reclame; datele stau pe telefon. / Ciclio is an Android app that keeps track of your whole household's deadlines and reminds you in time, with no account and no ads.
+
+Aplicația este în testare închisă pe Google Play: deocamdată o găsesc doar testerii. / The app is in closed testing on Google Play: for now only testers can find it.
+
+## Română
+- [Pagina principală](https://ciclio.app/): ce face aplicația
+- [Ciclio pentru flote](https://ciclio.app/flote/): lista de așteptare pentru termenele unei flote (în pregătire)
+- [Politica de confidențialitate](https://ciclio.app/confidentialitate/): ce date folosește aplicația și cum le ștergi
+- [Noutăți](https://ciclio.app/noutati/): ce s-a schimbat, versiune cu versiune
+
+## English
+- [Home page](https://ciclio.app/en/): what the app does
+- [Ciclio for fleets](https://ciclio.app/en/flote/): waiting list for fleet deadlines (in preparation)
+- [Privacy policy](https://ciclio.app/confidentialitate/#en): what data the app uses and how to delete it
+- [What's new](https://ciclio.app/noutati/): what changed, version by version
+
+## Ce face / What it does
+- Ține scadențele casei (asigurarea locuinței, revizia centralei termice, verificarea instalației de gaz, garanții), ale oamenilor (buletin, pașaport, permis), ale animalelor (vaccinuri, deparazitare, microcip) și ale mașinii (ITP, RCA, rovinietă, revizie, amenzi), plus orice altă scadență.
+- Notificări locale, cu cât timp înainte alegi tu, per tip de obligație; reînnoire sau amânare direct din notificare.
+- Verifică setările telefonului care pot bloca notificările (alarme exacte, baterie, permisiuni).
+- Widgeturi pe ecranul de start, poze atașate (poliță, talon), română și engleză.
+- In English: tracks home, people, pet and car deadlines, with local reminders you time yourself, and checks the phone settings that can block them.
+
+## Ce nu face / What it does not do
+- Nu e calendar și nu e listă de sarcini: e făcută pentru scadențe. / It is not a calendar or a to-do list.
+- Nu are reclame, nu urmărește comportamentul și nu folosește analytics. / No ads, no behaviour tracking, no analytics.
+- Nu cere cont și nu depinde de internet ca să funcționeze. / It does not require an account or internet to work.
+- Nu e disponibilă pe iPhone deocamdată. / Not available on iPhone for now.
+
+## Datele / Your data
+- Datele stau pe telefonul tău. Fără cont, aplicația nu trimite nimic pe niciun server. / Data stays on your phone. Without an account the app sends nothing to any server.
+- Contul este opțional și sincronizează doar datele proprii, ca să le ai și pe alt telefon; se poate șterge oricând din aplicație. / The account is optional, syncs only your own data to a second phone, and can be deleted any time from the app.
+- Contact: contact@ciclio.app
