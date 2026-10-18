@@ -32,7 +32,7 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 | Vaccin polivalent | Animale de companie | Practică recomandată | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Câine, Pisică) | — |
 | Deparazitare internă | Animale de companie | Practică recomandată | la 3 luni | 3 zile, 1 zi | Animal de companie (Câine, Pisică, Dihor, Iepure, Cal / ponei, Alt animal) | — |
 | Deparazitare externă | Animale de companie | Practică recomandată | la 1 lună | 3 zile, 1 zi | — | — |
-| Microcip și înregistrare | Animale de companie | Cerut de lege; practică recomandată la pisică | o singură dată | 14 zile, 3 zile, 1 zi | — | neverificat |
+| Microcip și înregistrare | Animale de companie | Practică recomandată; cerut de lege la câine | o singură dată | 14 zile, 3 zile, 1 zi | — | neverificat |
 | Pașaport UE pentru animale de companie | Animale de companie | Practică recomandată | o singură dată | 30 de zile, 7 zile | — | — |
 | Pașaport ecvin | Animale de companie | Cerut de lege | o singură dată | 30 de zile, 7 zile | — | [1](https://eur-lex.europa.eu/eli/reg_impl/2021/963/oj) |
 | Asigurare pentru animal de companie | Animale de companie | Practică recomandată | la 1 an | 30 de zile, 7 zile, 1 zi | — | — |
@@ -44,7 +44,7 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 
 Rândul de sub tipul ales, când omul adaugă o obligație.
 
-- **ITP**: Peste 12 ani de la fabricație, ITP se face în fiecare an. La o mașină nouă, prima ITP e la 3 ani.
+- **ITP**: De la 12 ani de la fabricație, ITP se face în fiecare an. La o mașină nouă, prima ITP e la 3 ani.
 - **Rovinietă**: Pentru o rovinietă mai scurtă de un an, alege în Notificări → Cu cât timp înainte termene mici, potrivite cu durata cumpărată.
 - **Impozit pe mijlocul de transport**: Se plătește în două rate: 31 martie și 30 septembrie. Plata integrală până la 31 martie poate aduce o bonificație, dacă primăria o acordă.
 - **Asigurare obligatorie (PAD)**: PAD acoperă doar cutremur, alunecări de teren și inundații. Se reînnoiește la 12 luni.
