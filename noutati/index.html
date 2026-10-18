@@ -42,7 +42,13 @@ summary:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2
 .t strong { font-size: 17px; }
 .t small { color: var(--muted); font-size: 13px; }
 .badge { flex: none; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; color: var(--c); border: 1px solid currentColor; }
-.rel ul { margin: 0; padding: 0 22px 18px 44px; color: #d5daf0; }
+.body { padding: 0 18px 14px; color: #d5daf0; }
+.grp h3 { margin: 14px 0 0; font-size: 14px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.grp.nou h3 { color: var(--accent-soft); }
+.grp.reparat h3 { color: #f0b45a; }
+.grp.catalog h3 { color: #8fdcb8; }
+.rel ul { margin: 0; padding: 0 4px 0 26px; }
+.zone { display: inline-block; font-size: 11px; font-weight: 700; line-height: 1.5; padding: 0 8px; margin-right: 4px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); vertical-align: 1px; white-space: nowrap; }
 .rel li { margin: 7px 0; }
 .rel li::marker { color: var(--c); }
 .cta { margin-top: 32px; padding: 20px; border-radius: 20px; border: 1px dashed var(--line); color: var(--muted); }
@@ -62,7 +68,6 @@ footer { margin-top: 40px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
       <a href="../"><span data-l="ro">Acasă</span><span data-l="en">Home</span></a>
       <a href="../noutati/" aria-current="page"><span data-l="ro">Noutăți</span><span data-l="en">What’s new</span></a>
       <a href="../testeri/"><span data-l="ro">Testare</span><span data-l="en">Testing</span></a>
-      <a href="../flote/"><span data-l="ro">Flote</span><span data-l="en">Fleets</span></a>
       <a href="../feedback/">Feedback</a>
     </div>
     <div class="langs" role="group" aria-label="Limba / Language">
@@ -73,24 +78,98 @@ footer { margin-top: 40px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
 
   <h1><span data-l="ro">Ce e nou în Ciclio</span><span data-l="en">What’s new in Ciclio</span></h1>
   <p class="lead">
-    <span data-l="ro">Fiecare schimbare, pe scurt. Multe au pornit de la cineva care ne-a scris.</span>
-    <span data-l="en">Every change, in short. Many started with someone who wrote to us.</span>
+    <span data-l="ro">Ce am livrat, pe categorii: ce e nou, ce am reparat, ce am ajustat și ce s-a adăugat în catalog. Multe au pornit de la cineva care ne-a scris.</span>
+    <span data-l="en">What we shipped, by category: what’s new, what we fixed, what we improved and what was added to the catalog. Many started with someone who wrote to us.</span>
   </p>
 
   <div class="list">
     <details class="rel next" open>
       <summary>
         <span class="dot"></span>
-        <span class="t"><strong><span data-l="ro">În lucru</span><span data-l="en">In progress</span></strong>
+        <span class="t"><strong><span data-l="ro">În lucru — următoarea versiune</span><span data-l="en">In progress — next version</span></strong>
         <small></small></span>
-        <span class="badge"><span data-l="ro">vine curând</span><span data-l="en">coming soon</span></span>
+        <span class="badge"><span data-l="ro">nelansat încă</span><span data-l="en">not released yet</span></span>
       </summary>
-      <ul data-l="ro">
-          <li>Butonul „+” din bară se adaptează ecranului: pe Bunuri adaugă un bun, pe pagina unui bun adaugă o obligație pe acel bun, iar tab-ul nu se mai schimbă niciodată.</li>
-      </ul>
-      <ul data-l="en">
-          <li>The “+” button in the bar adapts to the screen: on Assets it adds an asset, on an asset page it adds an obligation to that asset, and it never switches tab.</li>
-      </ul>
+      <div class="body" data-l="ro">
+      <section class="grp nou">
+        <h3>Nou</h3>
+        <ul>
+          <li><span class="zone">bunuri</span> Poți adăuga orice alt bun care cere grijă (o imprimantă 3D, o barcă, un aparat): îi dai un nume, alegi o iconiță și îi pui o „Mentenanță” la intervalul care ți se potrivește (propus: o dată pe an). Dacă nu găsești ce cauți, ne spui din aplicație.</li>
+          <li><span class="zone">bunuri</span> „Animal de companie” are acum iconițe pentru specii: câine, pisică, dihor, hamster, iepure, cobai, papagal, șarpe, țestoasă, pești, cal și altele. Scrii numele și îți propunem iconița; fiecare specie primește doar obligațiile care i se potrivesc (antirabicul doar la câine, pisică și dihor). Rasa e un detaliu pe care îl poți nota.</li>
+          <li><span class="zone">notificări</span> Notificări pe grupuri: în Notificări poți alege „cu cât timp înainte” o dată pentru „Obligatorii prin lege”, o dată pentru „Recomandate”, și poți face o excepție pentru un singur tip. Un tip cu setare proprie spune asta și are butonul „Revino la setarea grupului”. Dacă nu schimbi nimic, nu se schimbă nimic.</li>
+        </ul>
+      </section>
+      <section class="grp reparat">
+        <h3>Reparat</h3>
+        <ul>
+          <li><span class="zone">aplicație</span> Câmpul de căutare, formularele și ferestrele cu câmp stau fix deasupra tastaturii, indiferent dacă telefonul folosește gesturi sau butoane de navigare; iar căutarea găsește și fără diacritice („rovinieta” găsește „Rovinietă”).</li>
+          <li><span class="zone">aplicație</span> Un singur tap pe Bunuri te duce la Bunuri, chiar dacă ai plecat de acolo din Setări.</li>
+          <li><span class="zone">aplicație</span> Istoricul notificărilor și alegerea tipului de obligație se deschid mereu de sus.</li>
+          <li><span class="zone">cont și sincronizare</span> O obligație sosită de pe alt telefon, cu un tip pe care această versiune nu-l cunoaște, apare în listă și primește notificări, în loc să fie sărită.</li>
+          <li><span class="zone">aplicație</span> Primele pagini de prezentare se derulează pe ecrane mici sau cu fontul mărit, iar butoanele cresc odată cu textul.</li>
+        </ul>
+      </section>
+      <section class="grp ajustat">
+        <h3>Ajustat</h3>
+        <ul>
+          <li><span class="zone">bunuri</span> Butonul de ștergere de pe pagina unui bun spune ce șterge: „Șterge vehiculul”, „Șterge locuința”, „Șterge persoana”, „Șterge animalul de companie”, „Șterge bunul”.</li>
+          <li><span class="zone">setări</span> „Raportează o problemă” din Setări îți dă de ales: un formular rapid pe site sau e-mailul cu detaliile tehnice.</li>
+          <li><span class="zone">aplicație</span> Butonul „+” din bară se adaptează ecranului: pe Bunuri adaugă un bun, pe pagina unui bun adaugă o obligație pe acel bun, iar tab-ul nu se mai schimbă niciodată.</li>
+          <li><span class="zone">bunuri</span> Suprafața locuinței apare cu unitatea: „Suprafață (m²)”. La o rulotă sau remorcă, detaliile sugerate sunt marca, anul, seria de șasiu și masa maximă, nu kilometrajul.</li>
+          <li><span class="zone">bunuri</span> Pe cardul unui bun, detaliile se citesc acum fără ghicit: „130.000 km”, „An 2020”, „85 m²”, „Rasă: Labrador”, în loc de simple numere. Detaliile scrise de tine apar ca „Etichetă: valoare”. Pagina bunului rămâne la fel.</li>
+        </ul>
+      </section>
+      <section class="grp catalog">
+        <h3>Catalog</h3>
+        <ul>
+          <li><span class="zone">catalog</span> ITP-ul unei mașini sau autorulote de 12 ani sau mai veche (după „An fabricație” de la bun) se propune anual, nu la 2 ani.</li>
+          <li><span class="zone">notificări</span> Buletinul: primele notificări vin acum cu 5 luni și 2 luni înainte, iar ultima cu 20 de zile, ca să mai apuci să depui cererea (se depune cu cel mult 180 și cel puțin 15 zile înainte de expirare). Se aplică dacă n-ai schimbat singur pragurile.</li>
+          <li><span class="zone">catalog</span> Tipuri noi: impozitul pe clădire, pe teren și pe vehicul (se repetă la 6 luni, cu 31 martie propus ca primă dată, ca să nu ratezi a doua rată), asigurarea obligatorie a locuinței (PAD), revizia instalației de gaz (la 10 ani), verificarea ISCIR a centralei (la 2 ani) și pașaportul ecvin pentru cai. Locuința propune acum PAD, impozitul, ISCIR și gazul; vehiculele propun și impozitul.</li>
+          <li><span class="zone">catalog</span> Vehicule: „Autoutilitară” (ITP anual) și „Rulotă” (ITP la 3 ani) sunt variante proprii, iar „Rulotă sau remorcă” a devenit „Remorcă” (2 ani). Dacă ai adăugat deja o rulotă, deschide bunul și alege „Rulotă”.</li>
+          <li><span class="zone">catalog</span> Sub tipul ales apare, unde ajută, o notă scurtă (ITP, rovinietă, permis, garanție, impozite, PAD, antirabic, pașaportul animalului). Persoana primește „Data nașterii” ca detaliu sugerat. „Asigurare locuință” se numește acum „facultativă” (PAD e cea obligatorie), iar microcipul își anunță termenul cu 14, 3 și 1 zi înainte, dacă n-ai schimbat singur pragurile.</li>
+        </ul>
+      </section>
+      </div>
+      <div class="body" data-l="en">
+      <section class="grp nou">
+        <h3>New</h3>
+        <ul>
+          <li><span class="zone">assets</span> You can add any other item that needs care (a 3D printer, a boat, an appliance): give it a name, pick an icon and add a “Maintenance” at the interval that suits you (suggested: once a year). If you can’t find what you need, tell us from the app.</li>
+          <li><span class="zone">assets</span> “Pet” now has icons for species: dog, cat, ferret, hamster, rabbit, guinea pig, parrot, snake, turtle, fish, horse and more. Type the name and we suggest the icon; each species gets only the obligations that suit it (the rabies shot only for dogs, cats and ferrets). The breed is a detail you can note.</li>
+          <li><span class="zone">notifications</span> Notification timing by group: in Notifications you can set “how far ahead” once for “Required by law”, once for “Recommended”, and make an exception for a single type. A type with its own setting says so and has a “Back to the group setting” button. If you change nothing, nothing changes.</li>
+        </ul>
+      </section>
+      <section class="grp reparat">
+        <h3>Fixed</h3>
+        <ul>
+          <li><span class="zone">app</span> The search field, forms and popups with a field sit right above the keyboard, whether the phone uses gestures or navigation buttons; and search works without diacritics (“rovinieta” finds “Rovinietă”).</li>
+          <li><span class="zone">app</span> One tap on Assets takes you to Assets, even if you left it from Settings.</li>
+          <li><span class="zone">app</span> The notifications history and the obligation type picker always open at the top.</li>
+          <li><span class="zone">account and sync</span> An obligation that arrives from another phone with a type this version does not know now shows up in the list and gets notifications, instead of being skipped.</li>
+          <li><span class="zone">app</span> The first intro pages scroll on small screens or with a larger font, and the buttons grow with the text.</li>
+        </ul>
+      </section>
+      <section class="grp ajustat">
+        <h3>Improved</h3>
+        <ul>
+          <li><span class="zone">assets</span> The delete button on an asset page says what it deletes: “Delete vehicle”, “Delete home”, “Delete person”, “Delete pet”, “Delete item”.</li>
+          <li><span class="zone">settings</span> “Report a problem” in Settings now lets you choose: a quick form on the website or the email with technical details.</li>
+          <li><span class="zone">app</span> The “+” button in the bar adapts to the screen: on Assets it adds an asset, on an asset page it adds an obligation to that asset, and it never switches tab.</li>
+          <li><span class="zone">assets</span> A home’s floor area shows its unit: “Floor area (m²)”. For a caravan or trailer, the suggested details are make, year, VIN and maximum mass, not mileage.</li>
+          <li><span class="zone">assets</span> On an asset’s card, details now read clearly: “130,000 km”, “Year 2020”, “85 m²”, “Breed: Labrador”, instead of bare numbers. Details you wrote yourself show as “Label: value”. The asset page stays the same.</li>
+        </ul>
+      </section>
+      <section class="grp catalog">
+        <h3>Catalog</h3>
+        <ul>
+          <li><span class="zone">catalog</span> The inspection (ITP) of a car or motorhome 12 or more years old (by the asset’s “Year” detail) is now suggested yearly, not every 2 years.</li>
+          <li><span class="zone">notifications</span> ID card: the first reminders now come 5 and 2 months ahead and the last one 20 days ahead, so you can still apply (the request can be filed at most 180 and at least 15 days before expiry). Applies unless you changed the reminders yourself.</li>
+          <li><span class="zone">catalog</span> New types: the building, land and vehicle taxes (repeating every 6 months, with 31 March suggested as the first date, so you don’t miss the second instalment), mandatory home insurance (PAD), the gas installation overhaul (every 10 years), the ISCIR boiler check (every 2 years) and the equine passport for horses. A home now suggests PAD, the tax, ISCIR and gas; vehicles suggest the tax too.</li>
+          <li><span class="zone">catalog</span> Vehicles: “Van” (inspection every year) and “Caravan” (every 3 years) are variants of their own, and “Caravan or trailer” became “Trailer” (2 years). If you already added a caravan, open it and choose “Caravan”.</li>
+          <li><span class="zone">catalog</span> Under the chosen type you now see, where it helps, a short note (inspection, vignette, licence, warranty, taxes, PAD, rabies shot, pet passport). A person gets “Date of birth” as a suggested detail. “Home insurance” is now called “optional” (PAD is the mandatory one), and the microchip reminds you 14, 3 and 1 day ahead, unless you changed the reminders yourself.</li>
+        </ul>
+      </section>
+      </div>
     </details>
     <details class="rel release" open>
       <summary>
@@ -99,76 +178,108 @@ footer { margin-top: 40px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
         <small><span data-l="ro">11 octombrie 2026</span><span data-l="en">October 11, 2026</span></small></span>
         <span class="badge"><span data-l="ro">în Google Play</span><span data-l="en">on Google Play</span></span>
       </summary>
-      <ul data-l="ro">
-          <li>Notificările se deschid ca un panou care coboară din clopoțel; bara de jos rămâne la îndemână, iar Înapoi te duce unde erai. Setările se deschid cu roata dințată, glisând de la dreapta, cu săgeată Înapoi.</li>
-          <li>Butonul „+” din bară are aceeași mărime ca Acasă și Bunuri și răspunde mereu la atingere.</li>
-          <li>Bara de jos: Acasă, butonul „+” în mijloc, Bunuri. Bunurile au tab propriu, iar notificările și Setările se deschid din antet (clopoțel și roata de setări).</li>
-          <li>Butonul „+” din mijlocul barei adaugă orice: obligație, mașină, locuință, persoană.</li>
-          <li>Iconița Acasă e un calendar viu: arată în câte zile e următorul termen, sau, cu roșu, câte zile de întârziere ai; cu o bifă verde când nu urmează nimic în 30 de zile.</li>
-          <li>Acasă e o listă în ordinea datelor: Restante, Următoarele 30 de zile, Mai târziu. Butonul de filtrare a dispărut; grupările pe bun se văd în Bunuri.</li>
-          <li>Tab-ul Bunuri nu mai are bulină roșie.</li>
-          <li>Tab-ul Bunuri: fiecare bun apare ca în antetul paginii lui, mai compact (inel de stare, nume, detalii, următoarea scadență); atingi cardul și se deschide pagina.</li>
-          <li>„Ajung notificările la timp?”: starea fiecărei setări se afișează complet (și „În regulă”, care se tăia pe unele telefoane).</li>
-          <li>Când apare o versiune nouă în Google Play, aplicația te anunță jos și o poți descărca fără să o părăsești; nu te forțează niciodată.</li>
-          <li>Pozele atașate ocupă mult mai puțin loc, dar rămân lizibile când le mărești.</li>
-          <li>Pe tablete, aplicația se rotește și conținutul rămâne centrat.</li>
-          <li>Numele obligațiilor create de aplicație urmează limba și numele bunului.</li>
-          <li>Butoane mai ușor de văzut și de atins; textul gri e mai lizibil.</li>
-          <li>Importul unei copii de rezervă verifică mai atent fișierul.</li>
-          <li>Detaliile unui bun (serie șasiu, an etc.) se văd chiar pe pagina lui.</li>
-          <li>Bunurile arhivate se văd în „Bunurile mele” și se pot readuce; după arhivare poți apăsa „Anulează”.</li>
-          <li>Limba se alege la prima pornire, chiar în prima pagină.</li>
-          <li>După „Salvează” te întorci de unde ai venit, cu „Încă una” la îndemână.</li>
-          <li>„Rezolvată” se poate anula imediat.</li>
-          <li>Dacă adaugi a doua obligație de același fel pe același bun (ex. al doilea RCA), aplicația te întreabă.</li>
-          <li>Cardurile se extind doar din săgeată, fără gestul de tragere.</li>
-          <li>Pe pagina bunului, obligațiile se citesc și se editează pe loc: atingi cardul (are chevron vizibil) și vezi câmpurile, invitațiile «+ …» și șase acțiuni (Reînnoiește, Rezolvată, Poză, Calendar, Editează, Șterge). «Editează» deschide toate câmpurile deodată, cu un singur «Salvează». Sub listă, «+ Adaugă o obligație» deschide un card nou, cu tipurile potrivite bunului.</li>
-          <li>Pagina unui bun are un antet nou, colorat după categorie, cu silueta bunului și un inel «2/3 în regulă». «Editează» deschide pe loc numele, numărul și detaliile, cu un singur «Salvează»; ecranul separat de editare a dispărut.</li>
-          <li>„Reînnoiește” din notificare: dacă renunți, fereastra nu se mai redeschide.</li>
-          <li>Poza unei obligații se poate înlocui: o poză nouă o ia locul celei vechi.</li>
-          <li>Orice obligație (din listă, căutare, notificare sau widget) se deschide acum pe pagina bunului ei, la cardul ei; ecranul separat de detaliu a dispărut. Obligațiile fără bun au pagina „Altele”.</li>
-          <li>Prima pagină a prezentării are un mesaj mai prietenos.</li>
-          <li>Setări: „Șterge toate datele de pe telefon” readuce aplicația la starea de după instalare (cu confirmare în doi pași).</li>
-          <li>Invitațiile «+ …» sunt chip-uri mici cu contur punctat, așezate pe un rând care se rupe pe mai multe linii. Detaliile bunului stau acum în antet, ca etichete, urmate de invitații; cardul separat a dispărut.</li>
-          <li>„Data nașterii” (și orice detaliu de tip dată) deschide calendarul, nu tastatura.</li>
-          <li>Câmpul deschis dintr-o invitație pe o obligație nu mai rămâne sub tastatură; după «+ Adaugă o obligație» pagina derulează la cardul nou.</li>
-          <li>Arhivare: mesajul spune unde sunt arhivatele și are butonul «Vezi arhivate».</li>
-      </ul>
-      <ul data-l="en">
-          <li>Notifications now drop down from the bell as a panel; the bottom bar stays usable, and Back returns you to where you were. Settings open from the cog icon, sliding in from the right, with a Back arrow.</li>
-          <li>The bar's “+” button is the same size as Home and Assets and always responds to taps.</li>
-          <li>Bottom bar: Home, a "+" button in the middle, Assets. Assets have their own tab, and notifications and Settings open from the header (bell and settings icon).</li>
-          <li>The "+" in the middle of the bar adds anything: an obligation, a vehicle, a home, a person.</li>
-          <li>The Home icon is a live calendar: it shows how many days until the next deadline or, in red, how many days overdue you are; a green check when nothing is due in the next 30 days.</li>
-          <li>Home is a list in date order: Overdue, Next 30 days, Later. The filter button is gone; groupings by asset live in Assets.</li>
-          <li>The Assets tab no longer has a red dot.</li>
-          <li>Assets tab: each asset now looks like its page header, in compact form (status ring, name, details, next due); tap the card to open the page.</li>
-          <li>"Do reminders arrive on time?": each setting's status now shows in full (the Romanian "În regulă" was cut off on some phones).</li>
-          <li>When a new version appears on Google Play, the app tells you at the bottom and you can download it without leaving; it never forces you.</li>
-          <li>Attached photos take far less space but stay readable when you zoom in.</li>
-          <li>On tablets the app rotates and its content stays centred.</li>
-          <li>Obligation names created by the app follow the language and the asset's name.</li>
-          <li>Buttons are easier to see and tap; grey text is more readable.</li>
-          <li>Importing a backup now checks the file more carefully.</li>
-          <li>An asset's details (VIN, year…) now show right on its page.</li>
-          <li>Archived assets show in "My assets" and can be brought back; after archiving you can tap "Undo".</li>
-          <li>You pick the language on the very first screen.</li>
-          <li>After "Save" you return to where you were, with "Add another" at hand.</li>
-          <li>"Resolved" can be undone right away.</li>
-          <li>Adding a second obligation of the same kind on the same asset (e.g. a second RCA) now asks first.</li>
-          <li>Cards expand only from the arrow; the drag gesture is gone.</li>
-          <li>On an asset page, obligations are read and edited in place: tap the card (it has a visible chevron) to see its fields, the "+ …" invitations and six actions (Renew, Resolved, Photo, Calendar, Edit, Delete). "Edit" opens every field at once with a single "Save". Under the list, "+ Add an obligation" opens a new card with the types that fit the asset.</li>
-          <li>An asset page has a new header tinted by category, with the asset silhouette and a "2/3 on track" ring. "Edit" opens the name, number and details in place with a single "Save"; the separate edit screen is gone.</li>
-          <li>"Renew" from a notification: if you cancel, the panel no longer reopens.</li>
-          <li>An obligation's photo can be replaced: a new photo takes the old one's place.</li>
-          <li>Every obligation (from the list, search, a notification or the widget) now opens on its asset's page, at its card; the separate detail screen is gone. Obligations without an asset have an "Other" page.</li>
-          <li>The first intro page has a friendlier message.</li>
-          <li>Settings: "Delete all data on this phone" brings the app back to its fresh-install state (two-step confirmation).</li>
-          <li>The "+ …" invitations are small chips with a dashed outline in a row that wraps. An asset's details now sit in the header as tags, followed by the invitations; the separate card is gone.</li>
-          <li>"Date of birth" (and any date-type detail) opens the calendar, not the keyboard.</li>
-          <li>A field opened from an invitation on an obligation no longer ends up under the keyboard; after "+ Add an obligation" the page scrolls to the new card.</li>
-          <li>Archiving: the message says where archived items are and has a "View archived" button.</li>
-      </ul>
+      <div class="body" data-l="ro">
+      <section class="grp nou">
+        <h3>Nou</h3>
+        <ul>
+          <li><span class="zone">aplicație</span> Bara de jos: Acasă, butonul „+” în mijloc, Bunuri. Bunurile au tab propriu, iar notificările și Setările se deschid din antet (clopoțel și roata de setări).</li>
+          <li><span class="zone">obligații</span> Butonul „+” din mijlocul barei adaugă orice: obligație, mașină, locuință, persoană.</li>
+          <li><span class="zone">aplicație</span> Iconița Acasă e un calendar viu: arată în câte zile e următorul termen, sau, cu roșu, câte zile de întârziere ai; cu o bifă verde când nu urmează nimic în 30 de zile.</li>
+          <li><span class="zone">obligații</span> Acasă e o listă în ordinea datelor: Restante, Următoarele 30 de zile, Mai târziu. Butonul de filtrare a dispărut; grupările pe bun se văd în Bunuri.</li>
+          <li><span class="zone">aplicație</span> Când apare o versiune nouă în Google Play, aplicația te anunță jos și o poți descărca fără să o părăsești; nu te forțează niciodată.</li>
+          <li><span class="zone">aplicație</span> Pe tablete, aplicația se rotește și conținutul rămâne centrat.</li>
+          <li><span class="zone">bunuri</span> Bunurile arhivate se văd în „Bunurile mele” și se pot readuce; după arhivare poți apăsa „Anulează”.</li>
+          <li><span class="zone">aplicație</span> Limba se alege la prima pornire, chiar în prima pagină.</li>
+          <li><span class="zone">obligații</span> „Rezolvată” se poate anula imediat.</li>
+          <li><span class="zone">obligații</span> Dacă adaugi a doua obligație de același fel pe același bun (ex. al doilea RCA), aplicația te întreabă.</li>
+          <li><span class="zone">obligații</span> Pe pagina bunului, obligațiile se citesc și se editează pe loc: atingi cardul (are chevron vizibil) și vezi câmpurile, invitațiile «+ …» și șase acțiuni (Reînnoiește, Rezolvată, Poză, Calendar, Editează, Șterge). «Editează» deschide toate câmpurile deodată, cu un singur «Salvează». Sub listă, «+ Adaugă o obligație» deschide un card nou, cu tipurile potrivite bunului.</li>
+          <li><span class="zone">bunuri</span> Pagina unui bun are un antet nou, colorat după categorie, cu silueta bunului și un inel «2/3 în regulă». «Editează» deschide pe loc numele, numărul și detaliile, cu un singur «Salvează»; ecranul separat de editare a dispărut.</li>
+          <li><span class="zone">obligații</span> Poza unei obligații se poate înlocui: o poză nouă o ia locul celei vechi.</li>
+          <li><span class="zone">setări</span> Setări: „Șterge toate datele de pe telefon” readuce aplicația la starea de după instalare (cu confirmare în doi pași).</li>
+        </ul>
+      </section>
+      <section class="grp reparat">
+        <h3>Reparat</h3>
+        <ul>
+          <li><span class="zone">aplicație</span> Butonul „+” din bară are aceeași mărime ca Acasă și Bunuri și răspunde mereu la atingere.</li>
+          <li><span class="zone">setări</span> Importul unei copii de rezervă verifică mai atent fișierul.</li>
+          <li><span class="zone">notificări</span> „Reînnoiește” din notificare: dacă renunți, fereastra nu se mai redeschide.</li>
+          <li><span class="zone">bunuri</span> Câmpul deschis dintr-o invitație pe o obligație nu mai rămâne sub tastatură; după «+ Adaugă o obligație» pagina derulează la cardul nou.</li>
+        </ul>
+      </section>
+      <section class="grp ajustat">
+        <h3>Ajustat</h3>
+        <ul>
+          <li><span class="zone">aplicație</span> Notificările se deschid ca un panou care coboară din clopoțel; bara de jos rămâne la îndemână, iar Înapoi te duce unde erai. Setările se deschid cu roata dințată, glisând de la dreapta, cu săgeată Înapoi.</li>
+          <li><span class="zone">bunuri</span> Tab-ul Bunuri nu mai are bulină roșie.</li>
+          <li><span class="zone">bunuri</span> Tab-ul Bunuri: fiecare bun apare ca în antetul paginii lui, mai compact (inel de stare, nume, detalii, următoarea scadență); atingi cardul și se deschide pagina.</li>
+          <li><span class="zone">notificări</span> „Ajung notificările la timp?”: starea fiecărei setări se afișează complet (și „În regulă”, care se tăia pe unele telefoane).</li>
+          <li><span class="zone">obligații</span> Pozele atașate ocupă mult mai puțin loc, dar rămân lizibile când le mărești.</li>
+          <li><span class="zone">obligații</span> Numele obligațiilor create de aplicație urmează limba și numele bunului.</li>
+          <li><span class="zone">aplicație</span> Butoane mai ușor de văzut și de atins; textul gri e mai lizibil.</li>
+          <li><span class="zone">bunuri</span> Detaliile unui bun (serie șasiu, an etc.) se văd chiar pe pagina lui.</li>
+          <li><span class="zone">obligații</span> După „Salvează” te întorci de unde ai venit, cu „Încă una” la îndemână.</li>
+          <li><span class="zone">aplicație</span> Cardurile se extind doar din săgeată, fără gestul de tragere.</li>
+          <li><span class="zone">obligații</span> Orice obligație (din listă, căutare, notificare sau widget) se deschide acum pe pagina bunului ei, la cardul ei; ecranul separat de detaliu a dispărut. Obligațiile fără bun au pagina „Altele”.</li>
+          <li><span class="zone">aplicație</span> Prima pagină a prezentării are un mesaj mai prietenos.</li>
+          <li><span class="zone">bunuri</span> Invitațiile «+ …» sunt chip-uri mici cu contur punctat, așezate pe un rând care se rupe pe mai multe linii. Detaliile bunului stau acum în antet, ca etichete, urmate de invitații; cardul separat a dispărut.</li>
+          <li><span class="zone">bunuri</span> „Data nașterii” (și orice detaliu de tip dată) deschide calendarul, nu tastatura.</li>
+          <li><span class="zone">bunuri</span> Arhivare: mesajul spune unde sunt arhivatele și are butonul «Vezi arhivate».</li>
+        </ul>
+      </section>
+      
+      </div>
+      <div class="body" data-l="en">
+      <section class="grp nou">
+        <h3>New</h3>
+        <ul>
+          <li><span class="zone">app</span> Bottom bar: Home, a "+" button in the middle, Assets. Assets have their own tab, and notifications and Settings open from the header (bell and settings icon).</li>
+          <li><span class="zone">obligations</span> The "+" in the middle of the bar adds anything: an obligation, a vehicle, a home, a person.</li>
+          <li><span class="zone">app</span> The Home icon is a live calendar: it shows how many days until the next deadline or, in red, how many days overdue you are; a green check when nothing is due in the next 30 days.</li>
+          <li><span class="zone">obligations</span> Home is a list in date order: Overdue, Next 30 days, Later. The filter button is gone; groupings by asset live in Assets.</li>
+          <li><span class="zone">app</span> When a new version appears on Google Play, the app tells you at the bottom and you can download it without leaving; it never forces you.</li>
+          <li><span class="zone">app</span> On tablets the app rotates and its content stays centred.</li>
+          <li><span class="zone">assets</span> Archived assets show in "My assets" and can be brought back; after archiving you can tap "Undo".</li>
+          <li><span class="zone">app</span> You pick the language on the very first screen.</li>
+          <li><span class="zone">obligations</span> "Resolved" can be undone right away.</li>
+          <li><span class="zone">obligations</span> Adding a second obligation of the same kind on the same asset (e.g. a second RCA) now asks first.</li>
+          <li><span class="zone">obligations</span> On an asset page, obligations are read and edited in place: tap the card (it has a visible chevron) to see its fields, the "+ …" invitations and six actions (Renew, Resolved, Photo, Calendar, Edit, Delete). "Edit" opens every field at once with a single "Save". Under the list, "+ Add an obligation" opens a new card with the types that fit the asset.</li>
+          <li><span class="zone">assets</span> An asset page has a new header tinted by category, with the asset silhouette and a "2/3 on track" ring. "Edit" opens the name, number and details in place with a single "Save"; the separate edit screen is gone.</li>
+          <li><span class="zone">obligations</span> An obligation's photo can be replaced: a new photo takes the old one's place.</li>
+          <li><span class="zone">settings</span> Settings: "Delete all data on this phone" brings the app back to its fresh-install state (two-step confirmation).</li>
+        </ul>
+      </section>
+      <section class="grp reparat">
+        <h3>Fixed</h3>
+        <ul>
+          <li><span class="zone">app</span> The bar's “+” button is the same size as Home and Assets and always responds to taps.</li>
+          <li><span class="zone">settings</span> Importing a backup now checks the file more carefully.</li>
+          <li><span class="zone">notifications</span> "Renew" from a notification: if you cancel, the panel no longer reopens.</li>
+          <li><span class="zone">assets</span> A field opened from an invitation on an obligation no longer ends up under the keyboard; after "+ Add an obligation" the page scrolls to the new card.</li>
+        </ul>
+      </section>
+      <section class="grp ajustat">
+        <h3>Improved</h3>
+        <ul>
+          <li><span class="zone">app</span> Notifications now drop down from the bell as a panel; the bottom bar stays usable, and Back returns you to where you were. Settings open from the cog icon, sliding in from the right, with a Back arrow.</li>
+          <li><span class="zone">assets</span> The Assets tab no longer has a red dot.</li>
+          <li><span class="zone">assets</span> Assets tab: each asset now looks like its page header, in compact form (status ring, name, details, next due); tap the card to open the page.</li>
+          <li><span class="zone">notifications</span> "Do reminders arrive on time?": each setting's status now shows in full (the Romanian "În regulă" was cut off on some phones).</li>
+          <li><span class="zone">obligations</span> Attached photos take far less space but stay readable when you zoom in.</li>
+          <li><span class="zone">obligations</span> Obligation names created by the app follow the language and the asset's name.</li>
+          <li><span class="zone">app</span> Buttons are easier to see and tap; grey text is more readable.</li>
+          <li><span class="zone">assets</span> An asset's details (VIN, year…) now show right on its page.</li>
+          <li><span class="zone">obligations</span> After "Save" you return to where you were, with "Add another" at hand.</li>
+          <li><span class="zone">app</span> Cards expand only from the arrow; the drag gesture is gone.</li>
+          <li><span class="zone">obligations</span> Every obligation (from the list, search, a notification or the widget) now opens on its asset's page, at its card; the separate detail screen is gone. Obligations without an asset have an "Other" page.</li>
+          <li><span class="zone">app</span> The first intro page has a friendlier message.</li>
+          <li><span class="zone">assets</span> The "+ …" invitations are small chips with a dashed outline in a row that wraps. An asset's details now sit in the header as tags, followed by the invitations; the separate card is gone.</li>
+          <li><span class="zone">assets</span> "Date of birth" (and any date-type detail) opens the calendar, not the keyboard.</li>
+          <li><span class="zone">assets</span> Archiving: the message says where archived items are and has a "View archived" button.</li>
+        </ul>
+      </section>
+      
+      </div>
     </details>
     <details class="rel ota">
       <summary>
@@ -177,16 +288,40 @@ footer { margin-top: 40px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
         <small><span data-l="ro">9 octombrie 2026</span><span data-l="en">October 9, 2026</span></small></span>
         <span class="badge"><span data-l="ro">fără reinstalare</span><span data-l="en">no reinstall</span></span>
       </summary>
-      <ul data-l="ro">
-          <li>Când alegi data, aplicația nu mai schimbă singură cât de des se repetă o obligație: o amendă rămâne „o singură dată”, RCA-ul „în fiecare an”.</li>
-          <li>Textul din pachetele rapide și explicația de pe pagina unui bun nou au fost clarificate.</li>
-          <li>Sugestiile pentru detalii sunt mai potrivite (fără „Fotografie” sau „Asigurător” unde n-au sens), un CNP scris într-un detaliu nu mai deschide aplicația de apel, „Editează” se vede mai bine, „Continuă” iese în evidență, tastatura nu mai acoperă butoanele, iar rotirea ecranului nu mai strică vizualizatorul de poze și prezentarea.</li>
-      </ul>
-      <ul data-l="en">
-          <li>Picking a date no longer changes how often an obligation repeats on its own: a fine stays "once", car insurance stays "every year".</li>
-          <li>The label in quick bundles and the hint on a new asset's page are clearer.</li>
-          <li>Detail suggestions fit better (no "Photo" or "Insurer" where they make no sense), a personal ID number typed in a detail no longer opens the phone app, "Edit" is easier to see, "Continue" stands out, the keyboard no longer covers the buttons, and rotating the screen no longer breaks the photo viewer and the intro.</li>
-      </ul>
+      <div class="body" data-l="ro">
+      
+      <section class="grp reparat">
+        <h3>Reparat</h3>
+        <ul>
+          <li><span class="zone">obligații</span> Când alegi data, aplicația nu mai schimbă singură cât de des se repetă o obligație: o amendă rămâne „o singură dată”, RCA-ul „în fiecare an”.</li>
+        </ul>
+      </section>
+      <section class="grp ajustat">
+        <h3>Ajustat</h3>
+        <ul>
+          <li><span class="zone">aplicație</span> Textul din pachetele rapide și explicația de pe pagina unui bun nou au fost clarificate.</li>
+          <li><span class="zone">bunuri</span> Sugestiile pentru detalii sunt mai potrivite (fără „Fotografie” sau „Asigurător” unde n-au sens), un CNP scris într-un detaliu nu mai deschide aplicația de apel, „Editează” se vede mai bine, „Continuă” iese în evidență, tastatura nu mai acoperă butoanele, iar rotirea ecranului nu mai strică vizualizatorul de poze și prezentarea.</li>
+        </ul>
+      </section>
+      
+      </div>
+      <div class="body" data-l="en">
+      
+      <section class="grp reparat">
+        <h3>Fixed</h3>
+        <ul>
+          <li><span class="zone">obligations</span> Picking a date no longer changes how often an obligation repeats on its own: a fine stays "once", car insurance stays "every year".</li>
+        </ul>
+      </section>
+      <section class="grp ajustat">
+        <h3>Improved</h3>
+        <ul>
+          <li><span class="zone">app</span> The label in quick bundles and the hint on a new asset's page are clearer.</li>
+          <li><span class="zone">assets</span> Detail suggestions fit better (no "Photo" or "Insurer" where they make no sense), a personal ID number typed in a detail no longer opens the phone app, "Edit" is easier to see, "Continue" stands out, the keyboard no longer covers the buttons, and rotating the screen no longer breaks the photo viewer and the intro.</li>
+        </ul>
+      </section>
+      
+      </div>
     </details>
     <details class="rel ota">
       <summary>
@@ -195,18 +330,34 @@ footer { margin-top: 40px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
         <small><span data-l="ro">8 octombrie 2026</span><span data-l="en">October 8, 2026</span></small></span>
         <span class="badge"><span data-l="ro">fără reinstalare</span><span data-l="en">no reinstall</span></span>
       </summary>
-      <ul data-l="ro">
-          <li>Cu cont, datele se sincronizează singure: la deschiderea aplicației și la câteva secunde după fiecare modificare. Butonul „Sincronizează acum” rămâne.</li>
-          <li>După ce adaugi o mașină, o locuință sau o persoană, se deschide direct pagina ei, cu o explicație: atingi o obligație ca să adaugi poza actului, asigurătorul, prețul sau o notă.</li>
-          <li>Animale de companie: adaugi câinele, pisica sau alt animal, cu vaccinurile, deparazitarea și actele lui (microcip, pașaport, asigurare), și primești notificări din timp.</li>
-          <li>Obligațiile fără poză sau detalii au acum un rând discret „Fără poză sau detalii · atinge să adaugi”, ca să știi că poți adăuga poza actului, asigurătorul, prețul sau o notă.</li>
-      </ul>
-      <ul data-l="en">
-          <li>With an account, your data now syncs on its own: when you open the app and a few seconds after every change. The "Sync now" button is still there.</li>
-          <li>After adding a car, a home or a person, its page opens right away with a short explanation: tap an obligation to add a photo of the document, the insurer, the price or a note.</li>
-          <li>Pets: add your dog, cat or other pet with its vaccines, deworming and documents (microchip, passport, insurance), and get reminded in time.</li>
-          <li>Obligations with no photo or details now show a discreet "No photo or details · tap to add" line, so you know you can add a document photo, the insurer, the price or a note.</li>
-      </ul>
+      <div class="body" data-l="ro">
+      <section class="grp nou">
+        <h3>Nou</h3>
+        <ul>
+          <li><span class="zone">cont și sincronizare</span> Cu cont, datele se sincronizează singure: la deschiderea aplicației și la câteva secunde după fiecare modificare. Butonul „Sincronizează acum” rămâne.</li>
+          <li><span class="zone">bunuri</span> După ce adaugi o mașină, o locuință sau o persoană, se deschide direct pagina ei, cu o explicație: atingi o obligație ca să adaugi poza actului, asigurătorul, prețul sau o notă.</li>
+          <li><span class="zone">bunuri</span> Animale de companie: adaugi câinele, pisica sau alt animal, cu vaccinurile, deparazitarea și actele lui (microcip, pașaport, asigurare), și primești notificări din timp.</li>
+          <li><span class="zone">obligații</span> Obligațiile fără poză sau detalii au acum un rând discret „Fără poză sau detalii · atinge să adaugi”, ca să știi că poți adăuga poza actului, asigurătorul, prețul sau o notă.</li>
+        </ul>
+      </section>
+      
+      
+      
+      </div>
+      <div class="body" data-l="en">
+      <section class="grp nou">
+        <h3>New</h3>
+        <ul>
+          <li><span class="zone">account and sync</span> With an account, your data now syncs on its own: when you open the app and a few seconds after every change. The "Sync now" button is still there.</li>
+          <li><span class="zone">assets</span> After adding a car, a home or a person, its page opens right away with a short explanation: tap an obligation to add a photo of the document, the insurer, the price or a note.</li>
+          <li><span class="zone">assets</span> Pets: add your dog, cat or other pet with its vaccines, deworming and documents (microchip, passport, insurance), and get reminded in time.</li>
+          <li><span class="zone">obligations</span> Obligations with no photo or details now show a discreet "No photo or details · tap to add" line, so you know you can add a document photo, the insurer, the price or a note.</li>
+        </ul>
+      </section>
+      
+      
+      
+      </div>
     </details>
     <details class="rel release">
       <summary>
@@ -215,34 +366,58 @@ footer { margin-top: 40px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
         <small><span data-l="ro">6 octombrie 2026</span><span data-l="en">October 6, 2026</span></small></span>
         <span class="badge"><span data-l="ro">în Google Play</span><span data-l="en">on Google Play</span></span>
       </summary>
-      <ul data-l="ro">
-          <li>Prima versiune: obligații auto și pentru locuință, cu notificări din timp.</li>
-          <li>Adaugi o mașină sau o locuință dintr-un singur ecran.</li>
-          <li>Fiecare obligație aparține unui bun — mașina, locuința sau persoana ta — cu pagina lui, detaliile lui și toate obligațiile la un loc.</li>
-          <li>Acte personale: buletin, pașaport, permis de conducere, cu reamintiri din timp.</li>
-          <li>Două widgeturi noi: unul pătrat, cu un inel care arată cât timp a mai rămas, și „Ce urmează”, cu primele trei termene și butonul „+”. Atingi un termen și se deschide direct.</li>
-          <li>Fiecare obligație ține de un bun: la adăugare alegi vehiculul, locuința sau persoana din listă sau adaugi unul nou pe loc. Amenzile și garanțiile vechi trec pe „Eu”.</li>
-          <li>Informațiile unui bun (VIN, an…) se adaugă din „Editează”, iar formularul rămâne deasupra tastaturii.</li>
-          <li>Termenele îndepărtate se citesc ușor: „în 3 luni”, „în 2 ani”, nu „în 739 de zile”.</li>
-          <li>Vehicule de toate felurile: autoturism, motocicletă, autorulotă, rulotă sau remorcă. Fiecare vine cu obligațiile lui; motocicleta și remorca, de exemplu, fără rovinietă.</li>
-          <li>Amenzi, garanții sau orice altceva pot ține de o mașină, o locuință sau o persoană.</li>
-          <li>Verifici din Setări dacă telefonul lasă notificările să ajungă la timp.</li>
-          <li>Cont opțional, pentru a avea datele și pe alt telefon; contul se poate șterge oricând din aplicație.</li>
-      </ul>
-      <ul data-l="en">
-          <li>First release: car and home deadlines, with reminders in time.</li>
-          <li>Add a car or a home from a single screen.</li>
-          <li>Every obligation belongs to an asset — your car, home or yourself — with its own page, details and all its obligations together.</li>
-          <li>Personal documents: ID card, passport, driving licence, with early reminders.</li>
-          <li>Two new widgets: a square one with a ring showing how much time is left, and "Coming up" with the next three deadlines and a "+" button. Tap a deadline to open it.</li>
-          <li>Every obligation belongs to an asset: when adding one, pick the vehicle, home or person from the list or add a new one on the spot. Older fines and warranties move to "Me".</li>
-          <li>An asset's details (VIN, year…) are added from "Edit", and the form stays above the keyboard.</li>
-          <li>Far-off deadlines read naturally: "in 3 months", "in 2 years", not "in 739 days".</li>
-          <li>Every kind of vehicle: car, motorcycle, motorhome, caravan or trailer — each with its own obligations (a motorcycle or a trailer, for example, without the road vignette).</li>
-          <li>Fines, warranties or anything else can belong to a car, a home or a person.</li>
-          <li>Check in Settings that your phone lets reminders through on time.</li>
-          <li>Optional account, to have your data on another phone too; delete it any time from the app.</li>
-      </ul>
+      <div class="body" data-l="ro">
+      <section class="grp nou">
+        <h3>Nou</h3>
+        <ul>
+          <li><span class="zone">aplicație</span> Prima versiune: obligații auto și pentru locuință, cu notificări din timp.</li>
+          <li><span class="zone">bunuri</span> Adaugi o mașină sau o locuință dintr-un singur ecran.</li>
+          <li><span class="zone">bunuri</span> Fiecare obligație aparține unui bun — mașina, locuința sau persoana ta — cu pagina lui, detaliile lui și toate obligațiile la un loc.</li>
+          <li><span class="zone">obligații</span> Acte personale: buletin, pașaport, permis de conducere, cu reamintiri din timp.</li>
+          <li><span class="zone">widget</span> Două widgeturi noi: unul pătrat, cu un inel care arată cât timp a mai rămas, și „Ce urmează”, cu primele trei termene și butonul „+”. Atingi un termen și se deschide direct.</li>
+          <li><span class="zone">bunuri</span> Fiecare obligație ține de un bun: la adăugare alegi vehiculul, locuința sau persoana din listă sau adaugi unul nou pe loc. Amenzile și garanțiile vechi trec pe „Eu”.</li>
+          <li><span class="zone">bunuri</span> Informațiile unui bun (VIN, an…) se adaugă din „Editează”, iar formularul rămâne deasupra tastaturii.</li>
+          <li><span class="zone">bunuri</span> Vehicule de toate felurile: autoturism, motocicletă, autorulotă, rulotă sau remorcă. Fiecare vine cu obligațiile lui; motocicleta și remorca, de exemplu, fără rovinietă.</li>
+          <li><span class="zone">obligații</span> Amenzi, garanții sau orice altceva pot ține de o mașină, o locuință sau o persoană.</li>
+          <li><span class="zone">notificări</span> Verifici din Setări dacă telefonul lasă notificările să ajungă la timp.</li>
+          <li><span class="zone">cont și sincronizare</span> Cont opțional, pentru a avea datele și pe alt telefon; contul se poate șterge oricând din aplicație.</li>
+        </ul>
+      </section>
+      
+      <section class="grp ajustat">
+        <h3>Ajustat</h3>
+        <ul>
+          <li><span class="zone">obligații</span> Termenele îndepărtate se citesc ușor: „în 3 luni”, „în 2 ani”, nu „în 739 de zile”.</li>
+        </ul>
+      </section>
+      
+      </div>
+      <div class="body" data-l="en">
+      <section class="grp nou">
+        <h3>New</h3>
+        <ul>
+          <li><span class="zone">app</span> First release: car and home deadlines, with reminders in time.</li>
+          <li><span class="zone">assets</span> Add a car or a home from a single screen.</li>
+          <li><span class="zone">assets</span> Every obligation belongs to an asset — your car, home or yourself — with its own page, details and all its obligations together.</li>
+          <li><span class="zone">obligations</span> Personal documents: ID card, passport, driving licence, with early reminders.</li>
+          <li><span class="zone">widget</span> Two new widgets: a square one with a ring showing how much time is left, and "Coming up" with the next three deadlines and a "+" button. Tap a deadline to open it.</li>
+          <li><span class="zone">assets</span> Every obligation belongs to an asset: when adding one, pick the vehicle, home or person from the list or add a new one on the spot. Older fines and warranties move to "Me".</li>
+          <li><span class="zone">assets</span> An asset's details (VIN, year…) are added from "Edit", and the form stays above the keyboard.</li>
+          <li><span class="zone">assets</span> Every kind of vehicle: car, motorcycle, motorhome, caravan or trailer — each with its own obligations (a motorcycle or a trailer, for example, without the road vignette).</li>
+          <li><span class="zone">obligations</span> Fines, warranties or anything else can belong to a car, a home or a person.</li>
+          <li><span class="zone">notifications</span> Check in Settings that your phone lets reminders through on time.</li>
+          <li><span class="zone">account and sync</span> Optional account, to have your data on another phone too; delete it any time from the app.</li>
+        </ul>
+      </section>
+      
+      <section class="grp ajustat">
+        <h3>Improved</h3>
+        <ul>
+          <li><span class="zone">obligations</span> Far-off deadlines read naturally: "in 3 months", "in 2 years", not "in 739 days".</li>
+        </ul>
+      </section>
+      
+      </div>
     </details>
   </div>
 
