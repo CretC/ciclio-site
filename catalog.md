@@ -28,7 +28,7 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 | Carte de identitate | Persoană | Cerut de lege | la 10 ani | 5 luni, 2 luni, 20 de zile | Persoană | [1](https://www.avocatnet.ro/articol_27793/Cartea-de-identitate-ce-obligatii-iti-creeaza-acest-document.html) |
 | Pașaport | Persoană | Practică recomandată | la 10 ani | 3 luni, 1 lună, 7 zile | Persoană | [1](https://legislatie.just.ro/Public/DetaliiDocument/63704) (neverificat) |
 | Permis de conducere | Persoană | Cerut de lege | la 10 ani | 3 luni, 1 lună, 7 zile | Persoană | neverificat |
-| Vaccin antirabic | Animale de companie | Cerut de lege | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Câine, Pisică, Dihor) | [1](https://legislatie.just.ro/Public/DetaliiDocumentAfis/304689) |
+| Vaccin antirabic | Animale de companie | Cerut de lege | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Câine, Pisică, Dihor) | [1](https://legislatie.just.ro/Public/DetaliiDocument/280378) (neverificat) |
 | Vaccin polivalent | Animale de companie | Practică recomandată | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Câine, Pisică) | — |
 | Deparazitare internă | Animale de companie | Practică recomandată | la 3 luni | 3 zile, 1 zi | Animal de companie (Câine, Pisică, Dihor, Iepure, Cal / ponei, Alt animal) | — |
 | Deparazitare externă | Animale de companie | Practică recomandată | la 1 lună | 3 zile, 1 zi | — | — |
@@ -44,7 +44,7 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 
 Rândul de sub tipul ales, când omul adaugă o obligație.
 
-- **ITP**: De la 12 ani de la fabricație, ITP se face în fiecare an. La o mașină nouă, prima ITP e la 3 ani.
+- **ITP**: La autoturisme: prima ITP la 3 ani, apoi la 2 ani, și în fiecare an de la 12 ani de la fabricație. Alte vehicule au alt ritm; data exactă e pe documentul ultimei inspecții.
 - **Rovinietă**: Pentru o rovinietă mai scurtă de un an, alege în Notificări → Cu cât timp înainte termene mici, potrivite cu durata cumpărată.
 - **Impozit pe mijlocul de transport**: Se plătește în două rate: 31 martie și 30 septembrie. Plata integrală până la 31 martie poate aduce o bonificație, dacă primăria o acordă.
 - **Asigurare obligatorie (PAD)**: PAD acoperă doar cutremur, alunecări de teren și inundații. Se reînnoiește la 12 luni.
@@ -52,7 +52,7 @@ Rândul de sub tipul ales, când omul adaugă o obligație.
 - **Impozit teren**: Se plătește în două rate: 31 martie și 30 septembrie. Plata integrală până la 31 martie poate aduce o bonificație, dacă primăria o acordă.
 - **Garanție**: Garanția legală e de 2 ani de la livrare.
 - **Permis de conducere**: Pentru C sau D, permisul e valabil 5 ani.
-- **Vaccin antirabic**: Legea cere vaccinarea la cel mult 24 de luni la câine și cel mult 12 luni la pisică și dihor (Ord. ANSVSA 2263/2025). Intervalul real îl dă vaccinul folosit; aplicația te anunță la 1 an, mai devreme decât termenul legal.
+- **Vaccin antirabic**: Vaccinarea antirabică e obligatorie la câine, pisică și dihor. Intervalul îl dă vaccinul folosit și e trecut în carnet; aplicația te anunță la 1 an.
 - **Pașaport UE pentru animale de companie**: Pașaportul nu expiră; contează data vaccinului antirabic.
 
 Rândurile marcate „Practică recomandată” nu sunt obligații legale; „neverificat” înseamnă că temeiul legal nu este confirmat de un om.
