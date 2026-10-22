@@ -1,0 +1,63 @@
+/* Style for the guide pages (docs/ghid/). Hand-written, not generated.
+   Same dark theme as /noutati/; the menu comes from ../nav.css.
+   No external fonts, images or imports: the generator refuses any. */
+:root {
+  --bg: #0b0e1a; --fg: #eef0fa; --muted: #b3bad6; --accent: #4b61e0; --accent-soft: #aebaff;
+  --card: rgba(255, 255, 255, 0.05); --line: rgba(255, 255, 255, 0.12);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); }
+body { font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent-soft); }
+.wrap { max-width: 720px; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) 16px 56px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 21px; letter-spacing: -0.4px; color: var(--fg); text-decoration: none; }
+
+.crumbs { margin-top: 22px; font-size: 14px; color: var(--muted); }
+.crumbs a { color: var(--muted); }
+.crumbs span { color: var(--fg); }
+
+h1 { margin: 22px 0 0; font-size: clamp(28px, 5.5vw, 42px); line-height: 1.12; font-weight: 800; letter-spacing: -0.03em; text-wrap: balance; }
+.lead { margin: 14px 0 0; font-size: 18px; color: #c7cdea; }
+.meta { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+
+.answer { margin-top: 24px; padding: 16px 18px; border-radius: 16px; background: rgba(75, 97, 224, 0.16); border: 1px solid rgba(174, 186, 255, 0.35); font-size: 18px; line-height: 1.55; }
+.answer strong { color: var(--accent-soft); }
+
+.article { margin-top: 12px; color: #dde1f4; }
+.article h2 { margin: 34px 0 0; font-size: 24px; line-height: 1.25; letter-spacing: -0.02em; color: var(--fg); }
+.article h3 { margin: 24px 0 0; font-size: 18px; color: var(--fg); }
+.article p { margin: 12px 0 0; }
+.article ul, .article ol { margin: 12px 0 0; padding-left: 24px; }
+.article li { margin: 6px 0; }
+.article li::marker { color: var(--accent-soft); }
+
+.inapp { margin-top: 36px; padding: 16px 18px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); }
+.inapp p { margin: 0; }
+.inapp p + p { margin-top: 10px; }
+.inapp .help { color: var(--muted); font-size: 15px; }
+
+.ctabox { margin-top: 28px; text-align: center; }
+.cta { display: inline-flex; align-items: center; justify-content: center; padding: 14px 22px; border-radius: 14px; background: var(--accent); color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; box-shadow: 0 12px 40px rgba(75, 97, 224, 0.45); text-align: center; }
+.cta:hover { color: #fff; filter: brightness(1.1); }
+.cta:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 3px; }
+.ctanote { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+
+.sources, .related { margin-top: 36px; }
+.sources h2, .related h2 { margin: 0; font-size: 18px; }
+.sources ol, .related ul { margin: 10px 0 0; padding-left: 24px; font-size: 15px; color: var(--muted); }
+.sources li, .related li { margin: 6px 0; overflow-wrap: anywhere; }
+
+.disclaimer { margin: 36px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+
+.guides { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 12px; }
+.guides li { padding: 16px 18px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); }
+.guides a { font-size: 18px; font-weight: 700; }
+.guides p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+.empty { margin-top: 28px; color: var(--muted); }
+
+footer { margin-top: 40px; }
+footer .in { display: flex; gap: 8px 20px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+footer .in span { margin-right: auto; }
+footer a { color: var(--muted); }
