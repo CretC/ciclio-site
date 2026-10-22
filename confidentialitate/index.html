@@ -52,7 +52,15 @@ de ex. numărul de înmatriculare sau adresa —, scadență, recurență, noti�
 stare), detaliile adăugate (de ex. asigurător, număr de poliță, cost),
 pragurile de notificare și preferințele (limbă, temă, ora notificărilor).</li>
 <li><strong>Ce NU se sincronizează:</strong> pozele atașate, istoricul
-notificărilor, starea permisiunilor.</li>
+notificărilor, starea permisiunilor; numerele de 13 cifre care arată a CNP,
+oriunde sunt scrise (detalii, etichete, nume, subiect, notițe, identificatorul
+bunului: pe server și pe celelalte telefoane apar ca 🔒 sau mascate); și
+valoarea detaliilor „Serie și număr” (buletin), „Număr” (pașaport) și „Nr.
+document” („Altele”), care rămân doar pe telefonul pe care le-ai scris.
+Recunoașterea se face după forma numărului: un CNP scris cu spații, cu alte
+cifre decât 0–9 sau lipit de alte cifre nu e recunoscut. Ce s-a copiat pe
+server înainte de această versiune rămâne acolo până la ștergerea pe care o
+anunțăm separat; „Șterge contul” le șterge oricând, imediat.</li>
 <li><strong>Unde:</strong> la furnizorul nostru de infrastructură, Supabase,
 în regiunea Frankfurt (Germania, UE); contractul e cu Supabase Pte. Ltd. (Singapore), iar accesul de operare din afara UE se face pe baza clauzelor contractuale standard ale Comisiei Europene. Transferul e criptat (HTTPS). Fiecare
 cont își vede doar propriile date, impus în baza de date, nu doar în aplicație.</li>
@@ -231,7 +239,15 @@ number or address —, due date, recurrence, notes, status), the details you add
 (e.g. insurer, policy number, cost), notification lead times and preferences
 (language, theme, notification time).</li>
 <li><strong>What does NOT sync:</strong> attached photos, notification history,
-permission state.</li>
+permission state; 13-digit numbers that look like a Romanian personal numeric
+code (CNP), wherever they are written (details, labels, name, subject, notes, an
+asset’s identifier: on the server and on your other phones they show as 🔒 or
+masked); and the value of the details “Series and number” (ID card), “Number”
+(passport) and “Document no.” (“Other”), which stay only on the phone you typed
+them on. Recognition is by the number’s shape: a CNP written with spaces, with
+digits other than 0–9, or stuck to other digits is not recognised. What was
+copied to the server before this version stays there until the deletion we will
+announce separately; “Delete account” removes it at any time, immediately.</li>
 <li><strong>Where:</strong> with our infrastructure provider, Supabase, in the
 Frankfurt region (Germany, EU); our contract is with Supabase Pte. Ltd. (Singapore), and operational access from outside the EU relies on the European Commission’s standard contractual clauses. Transfer is encrypted (HTTPS). Each account can
 only read its own data, enforced in the database, not just in the app.</li>
