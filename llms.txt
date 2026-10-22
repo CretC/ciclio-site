@@ -9,6 +9,8 @@ Aplicația este în testare închisă pe Google Play: deocamdată o găsesc doar
 - [Ciclio pentru flote](https://ciclio.app/flote/): lista de așteptare pentru termenele unei flote (în pregătire)
 - [Politica de confidențialitate](https://ciclio.app/confidentialitate/): ce date folosește aplicația și cum le ștergi
 - [Noutăți](https://ciclio.app/noutati/): ce s-a schimbat, versiune cu versiune
+<!-- ghid:start -->
+<!-- ghid:end -->
 
 ## English
 - [Home page](https://ciclio.app/en/): what the app does
