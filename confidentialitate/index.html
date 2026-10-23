@@ -52,15 +52,8 @@ de ex. numărul de înmatriculare sau adresa —, scadență, recurență, noti�
 stare), detaliile adăugate (de ex. asigurător, număr de poliță, cost),
 pragurile de notificare și preferințele (limbă, temă, ora notificărilor).</li>
 <li><strong>Ce NU se sincronizează:</strong> pozele atașate, istoricul
-notificărilor, starea permisiunilor; numerele de 13 cifre care arată a CNP,
-oriunde sunt scrise (detalii, etichete, nume, subiect, notițe, identificatorul
-bunului: pe server și pe celelalte telefoane apar ca 🔒 sau mascate); și
-valoarea detaliilor „Serie și număr” (buletin), „Număr” (pașaport) și „Nr.
-document” („Altele”), care rămân doar pe telefonul pe care le-ai scris.
-Recunoașterea se face după forma numărului: un CNP scris cu spații, cu alte
-cifre decât 0–9 sau lipit de alte cifre nu e recunoscut. Ce s-a copiat pe
-server înainte de această versiune rămâne acolo până la ștergerea pe care o
-anunțăm separat; „Șterge contul” le șterge oricând, imediat.</li>
+notificărilor, starea permisiunilor; numerele de 13 cifre care arată a CNP, oriunde sunt scrise (detalii, etichete, nume, subiect, notițe, identificatorul bunului): pe server și pe celelalte telefoane apar ca 🔒 sau mascate; și valoarea detaliilor „Serie și număr” (buletin), „Număr” (pașaport) și „Nr. document” („Altele”), care rămân pe telefonul pe care le-ai scris. Recunoașterea se face după forma numărului: un CNP scris cu spații sau alte semne între cifre, lipit de alte cifre sau cu cifra de control greșită nu e recunoscut și se copiază ca orice text; la fel, seria și numărul unui act scrise în alt loc (nume, notițe, alt detaliu). Uneori, un alt număr de 13 cifre (de ex. un cod de bare) e luat drept CNP și rămâne și el pe telefon. Regula se aplică de la actualizarea aplicației din &lt;data OTA&gt; (în Setări: versiunea 1.2.0 actualizată pe &lt;data OTA&gt; sau mai nouă); o versiune mai veche a aplicației, pe oricare telefon al contului, le copiază în continuare. Ce s-a copiat pe server înainte rămâne acolo până la ștergerea pe care o anunțăm separat; „Șterge contul” le șterge oricând (copiile de siguranță ale furnizorului: §5).</li>
+<li><strong>Date despre alte persoane:</strong> dacă scrii date despre altcineva (de ex. numele unui membru al familiei, mașina sau locuința lui), cu cont ele se copiază pe server ca ale tale, doar pentru sincronizarea ta, și se șterg odată cu contul. CNP-urile și numerele actelor nu se copiază (mai sus). Persoana respectivă ne poate scrie la contact@ciclio.app pentru drepturile ei (art. 15–21 RGPD).</li>
 <li><strong>Unde:</strong> la furnizorul nostru de infrastructură, Supabase,
 în regiunea Frankfurt (Germania, UE); contractul e cu Supabase Pte. Ltd. (Singapore), iar accesul de operare din afara UE se face pe baza clauzelor contractuale standard ale Comisiei Europene. Transferul e criptat (HTTPS). Fiecare
 cont își vede doar propriile date, impus în baza de date, nu doar în aplicație.</li>
@@ -239,15 +232,8 @@ number or address —, due date, recurrence, notes, status), the details you add
 (e.g. insurer, policy number, cost), notification lead times and preferences
 (language, theme, notification time).</li>
 <li><strong>What does NOT sync:</strong> attached photos, notification history,
-permission state; 13-digit numbers that look like a Romanian personal numeric
-code (CNP), wherever they are written (details, labels, name, subject, notes, an
-asset’s identifier: on the server and on your other phones they show as 🔒 or
-masked); and the value of the details “Series and number” (ID card), “Number”
-(passport) and “Document no.” (“Other”), which stay only on the phone you typed
-them on. Recognition is by the number’s shape: a CNP written with spaces, with
-digits other than 0–9, or stuck to other digits is not recognised. What was
-copied to the server before this version stays there until the deletion we will
-announce separately; “Delete account” removes it at any time, immediately.</li>
+permission state; 13-digit numbers that look like a Romanian personal numeric code (CNP), wherever they are written (details, labels, name, subject, notes, an asset’s identifier): on the server and on your other phones they show as 🔒 or masked; and the value of the details “Series and number” (ID card), “Number” (passport) and “Document no.” (“Other”), which stay on the phone you typed them on. Recognition is by the number’s shape: a CNP written with spaces or other characters between the digits, stuck to other digits, or with a wrong check digit is not recognised and is copied like any text; the same goes for an ID document’s series and number written elsewhere (name, notes, another detail). Sometimes another 13-digit number (e.g. a barcode) is taken for a CNP and also stays on the phone. This applies from the app update of &lt;OTA date&gt; (in Settings: version 1.2.0 updated on &lt;OTA date&gt; or later); an older version of the app, on any phone of the account, still copies them. What was copied to the server before stays there until the deletion we will announce separately; “Delete account” removes it at any time (the provider’s backups: §5).</li>
+<li><strong>Data about other people:</strong> if you enter data about someone else (e.g. a family member’s name, car or home), with an account it is copied to the server as yours, only for your sync, and deleted with your account. CNPs and ID document numbers are not copied (above). That person can write to contact@ciclio.app to exercise their rights (GDPR Art. 15–21).</li>
 <li><strong>Where:</strong> with our infrastructure provider, Supabase, in the
 Frankfurt region (Germany, EU); our contract is with Supabase Pte. Ltd. (Singapore), and operational access from outside the EU relies on the European Commission’s standard contractual clauses. Transfer is encrypted (HTTPS). Each account can
 only read its own data, enforced in the database, not just in the app.</li>
