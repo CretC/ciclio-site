@@ -34,13 +34,13 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 | Declarația unică | Persoană | Cerut de lege | la 1 an; data sugerată: 25 mai | 30 de zile, 7 zile, 1 zi | — | [1](https://legislatie.just.ro/Public/DetaliiDocument/171282) |
 | Vaccin antirabic | Animale de companie | Cerut de lege | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Câine, Pisică, Dihor) | [1](https://legislatie.just.ro/Public/DetaliiDocument/280378) (neverificat) |
 | Vaccin polivalent | Animale de companie | Practică recomandată | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Câine, Pisică, Iepure) | — |
-| Deparazitare internă | Animale de companie | Practică recomandată | la 3 luni | 3 zile, 1 zi | Animal de companie (Câine, Pisică, Dihor, Iepure, Cal / ponei, Alt animal) | — |
+| Deparazitare internă | Animale de companie | Practică recomandată | la 3 luni; la 6 luni la vacă / vițel | 3 zile, 1 zi | Animal de companie (Câine, Pisică, Dihor, Iepure, Cal / ponei, Vacă / vițel, Alt animal) | — |
 | Deparazitare externă | Animale de companie | Practică recomandată | la 1 lună | 3 zile, 1 zi | — | — |
 | Microcip și înregistrare | Animale de companie | Practică recomandată; cerut de lege la câine | o singură dată | 14 zile, 3 zile, 1 zi | — | [1](https://legislatie.just.ro/Public/DetaliiDocument/32682) |
 | Pașaport UE pentru animale de companie | Animale de companie | Practică recomandată | o singură dată | 30 de zile, 7 zile | — | — |
 | Pașaport ecvin | Animale de companie | Cerut de lege | o singură dată | 30 de zile, 7 zile | — | [1](https://eur-lex.europa.eu/eli/reg_impl/2021/963/oj) |
 | Asigurare pentru animal de companie | Animale de companie | Practică recomandată | la 1 an | 30 de zile, 7 zile, 1 zi | — | — |
-| Control veterinar | Animale de companie | Practică recomandată | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Dihor, Hamster, Iepure, Cobai, Chinchilla, Șoarece / șobolan, Papagal, Canar, Perușă, Șarpe, Țestoasă, Șopârlă / gecko, Broască, Cal / ponei, Alt animal) | — |
+| Control veterinar | Animale de companie | Practică recomandată | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Dihor, Hamster, Iepure, Cobai, Chinchilla, Șoarece / șobolan, Papagal, Canar, Perușă, Șarpe, Țestoasă, Șopârlă / gecko, Broască, Cal / ponei, Vacă / vițel, Alt animal) | — |
 | Mentenanță | Alt bun | Personal | la 1 an | 30 de zile, 7 zile | Vehicul (ATV / quad, Bicicletă electrică, Trotinetă electrică, Barcă / ambarcațiune, Jet ski, Alt vehicul); Alt bun | — |
 | Altele | Altele | Personal | o singură dată | 30 de zile, 7 zile, 1 zi | — | — |
 
