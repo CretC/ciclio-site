@@ -10,6 +10,14 @@ Aplicația este în testare închisă pe Google Play: deocamdată o găsesc doar
 - [Politica de confidențialitate](https://ciclio.app/confidentialitate/): ce date folosește aplicația și cum le ștergi
 - [Noutăți](https://ciclio.app/noutati/): ce s-a schimbat, versiune cu versiune
 <!-- ghid:start -->
+## Ghid (română)
+- [Ghid](https://ciclio.app/ghid/): răspunsuri scurte, cu sursa legală, despre termenele casei și ale mașinii
+- [Amendă pentru ITP expirat în 2026: ce riști](https://ciclio.app/ghid/amenda-itp-expirat/): Când ITP-ul expiră, înmatricularea mașinii se suspendă de drept, iar condusul ei se amendează cu 9–20 de puncte-amendă, adică 1.946,25–4.325 lei de la 1 iulie 2026.
+- [Asigurarea obligatorie a locuinței (PAD), pe scurt](https://ciclio.app/ghid/asigurare-locuinta-obligatorie-pad/): Asigurarea obligatorie a locuinței (PAD) e cerută prin lege pentru construcțiile cu destinație de locuință și acoperă doar cutremurul, alunecările de teren și inundațiile (Legea 260/2008, art. 3).
+- [Cât costă rovinieta în 2026](https://ciclio.app/ghid/cost-rovinieta/): Din 1 octombrie 2026, rovinieta de autoturism pe 12 luni costă 228–330 lei după clasa Euro (254 lei la Euro VI) și se poate lua și pe 1, 10, 30 sau 60 de zile (Ordinul MTI 888/2026).
+- [RCA expirat de o zi: ce riști](https://ciclio.app/ghid/rca-expirat/): Legea 132/2017 cere RCA valabil tot timpul, iar circulația fără el costă 1.000–2.000 lei, plus reținerea certificatului de înmatriculare (art. 37 alin. 9).
+- [Revizia centralei termice: e obligatorie?](https://ciclio.app/ghid/revizie-centrala-termica/): Prescripția tehnică ISCIR cere verificarea tehnică periodică a centralei de apartament (până la 400 kW) o dată la 2 ani, făcută de o firmă autorizată (PT A1-2010, art. 21).
+- [Verificarea instalației de gaz: la cât timp](https://ciclio.app/ghid/verificare-instalatie-gaz/): Instalația de gaze din locuință se verifică la cel mult 2 ani și se revizuiește la cel mult 10 ani, după procedura ANRE din Ordinul 179/2015, modificat prin Ordinul 96/2023.
 <!-- ghid:end -->
 
 ## English
