@@ -206,23 +206,32 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
     <li>Car inspection</li><li>Car insurance</li><li>Road vignette</li><li>Home insurance</li><li>Boiler service</li><li>Gas check</li><li>ID, passport</li><li>Warranties</li>
   </ul>
 
+  <div class="join">
+    <a class="joinBtn" href="https://play.google.com/apps/testing/app.ciclio" target="_blank" rel="noopener">
+      <span data-l="ro">1 · Intră în testare</span><span data-l="en">1 · Join the testing</span>
+    </a>
+    <a class="joinBtn ghost" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
+      <span data-l="ro">2 · Instalează din Google Play</span><span data-l="en">2 · Install from Google Play</span>
+    </a>
+  </div>
+
   <ol class="steps">
-    <li data-l="ro"><span><strong>Îți lași adresa de Gmail</strong> aici, cea cu care intri în Play Store.</span></li>
-    <li data-l="en"><span><strong>Leave your Gmail address</strong> here, the one you use for the Play Store.</span></li>
-    <li data-l="ro"><span><strong>Intri în testare și instalezi aplicația</strong>, cu butoanele care apar după înscriere. Apoi adaugi ceva real, de exemplu mașina sau casa.</span></li>
-    <li data-l="en"><span><strong>Join the testing and install the app</strong> with the buttons shown after you sign up. Then add something real, like your car or your home.</span></li>
-    <li data-l="ro"><span><strong>O ții instalată două săptămâni.</strong> Google cere asta de la 12 oameni înainte de publicare. Orice părere ne ajută.</span></li>
-    <li data-l="en"><span><strong>Keep it installed for two weeks.</strong> Google requires 12 people to do this before launch. Any feedback helps.</span></li>
+    <li data-l="ro"><span><strong>Apeși „1 · Intră în testare”</strong>, de pe telefon, cu contul Google din Play Store. Nu îți cerem adresa.</span></li>
+    <li data-l="en"><span><strong>Tap “1 · Join the testing”</strong>, on your phone, with your Play Store Google account. We don’t ask for your address.</span></li>
+    <li data-l="ro"><span><strong>Apeși „2 · Instalează din Google Play”.</strong> Apoi adaugi ceva real, de exemplu mașina sau casa.</span></li>
+    <li data-l="en"><span><strong>Tap “2 · Install from Google Play”.</strong> Then add something real, like your car or your home.</span></li>
+    <li data-l="ro"><span><strong>Îți spui părerea.</strong> Orice părere ne ajută, o poți lăsa pe pagina de feedback.</span></li>
+    <li data-l="en"><span><strong>Tell us what you think.</strong> Any feedback helps, you can leave it on the feedback page.</span></li>
   </ol>
 
   <div id="box">
     <form class="card" id="form" novalidate>
       <div class="card-head">
-        <h2><span class="dot"></span><span data-l="ro">Testare Ciclio</span><span data-l="en">Ciclio testing</span></h2>
+        <h2><span class="dot"></span><span data-l="ro">Noutăți Ciclio</span><span data-l="en">Ciclio news</span></h2>
         <span class="badge" id="badge"><span data-l="ro">te așteptăm</span><span data-l="en">waiting for you</span></span>
       </div>
 
-      <label for="email"><span data-l="ro">Adresa de e-mail</span><span data-l="en">Email address</span> <small><span data-l="ro">(pentru testare: cea de Gmail din Play Store)</span><span data-l="en">(for testing: your Play Store Gmail)</span></small></label>
+      <label for="email"><span data-l="ro">Adresa de e-mail</span><span data-l="en">Email address</span> <small><span data-l="ro">(pentru noutăți)</span><span data-l="en">(for news)</span></small></label>
       <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="nume@gmail.com" required>
 
       <label for="name"><span data-l="ro">Cum te cheamă</span><span data-l="en">Your name</span> <small><span data-l="ro">(opțional)</span><span data-l="en">(optional)</span></small></label>
@@ -236,15 +245,10 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
         <button type="button" data-phone="ios" aria-pressed="false">iPhone</button>
       </div>
       <p class="note" id="iosNote" hidden>
-        <span data-l="ro">Versiunea de iPhone nu e gata încă. Bifează noutățile de mai jos și te anunțăm când apare. Iar dacă cineva din casă are Android, poate testa el.</span>
-        <span data-l="en">The iPhone version isn’t ready yet. Tick the news box below and we’ll tell you when it’s out. And if someone at home uses Android, they can test it.</span>
+        <span data-l="ro">Versiunea de iPhone nu e gata încă. Bifează noutățile de mai jos și te anunțăm când apare. Iar dacă cineva din casă are Android, poate instala Ciclio acum.</span>
+        <span data-l="en">The iPhone version isn’t ready yet. Tick the news box below and we’ll tell you when it’s out. And if someone at home uses Android, they can install Ciclio now.</span>
       </p>
 
-      <label class="consent" id="testingRow">
-        <input type="checkbox" id="testing">
-        <span data-l="ro">Vreau să testez aplicația, acum și la versiunile viitoare. Sunt de acord ca adresa mea să fie adăugată în Google Play Console pentru invitațiile la testare.</span>
-        <span data-l="en">I want to test the app, now and in future versions. I agree that my address is added in Google Play Console for the testing invites.</span>
-      </label>
       <label class="consent">
         <input type="checkbox" id="news">
         <span data-l="ro">Vreau să aflu noutățile despre Ciclio: lansarea, versiunea de iPhone, funcțiile noi. Doar câteva e-mailuri pe an, te poți dezabona oricând.</span>
@@ -257,31 +261,12 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
       </button>
       <p class="error" id="error" hidden></p>
       <p class="fine">
-        <span data-l="ro">Operator: Cret Catalin Flaviu, contact@ciclio.app. Pentru testare, adresa ajunge în Google Play Console, ca să poți instala aplicația; pentru noutăți, îți scriem doar noi. Datele stau în UE (Supabase, Frankfurt) și nu sunt publice. Adresa rămâne pe listă până te dezabonezi: din orice e-mail, cu un clic. Când nu mai rămâi înscris la nimic, se șterge de tot. Îți poți retrage acordul oricând, cu un e-mail. <a href="../confidentialitate/#testeri">Toate detaliile și drepturile tale</a>.</span>
-        <span data-l="en">Controller: Cret Catalin Flaviu, contact@ciclio.app. For testing, your address goes to Google Play Console so you can install the app; for news, only we write to you. Data is stored in the EU (Supabase, Frankfurt) and is not public. Your address stays on the list until you unsubscribe: one click, from any email. Once you’re signed up for nothing, it is deleted entirely. You can withdraw consent any time by email. <a href="../confidentialitate/#testers">Full details and your rights</a>.</span>
+        <span data-l="ro">Operator: Cret Catalin Flaviu, contact@ciclio.app. Pentru testare nu ai nevoie de adresă: intri direct din Google Play. Adresa de aici e doar pentru noutăți, iar e-mailurile le trimitem doar noi. Datele stau în UE (Supabase, Frankfurt) și nu sunt publice. Adresa rămâne pe listă până te dezabonezi: din orice e-mail, cu un clic. Când nu mai rămâi înscris la nimic, se șterge de tot. Îți poți retrage acordul oricând, cu un e-mail. <a href="../confidentialitate/#testeri">Toate detaliile și drepturile tale</a>.</span>
+        <span data-l="en">Controller: Cret Catalin Flaviu, contact@ciclio.app. You don’t need an address to test: you join straight from Google Play. The address here is only for news, and only we write to you. Data is stored in the EU (Supabase, Frankfurt) and is not public. Your address stays on the list until you unsubscribe: one click, from any email. Once you’re signed up for nothing, it is deleted entirely. You can withdraw consent any time by email. <a href="../confidentialitate/#testers">Full details and your rights</a>.</span>
       </p>
     </form>
 
     <div class="done" aria-live="polite">
-      <div data-done="testing">
-        <div class="chip"><i></i><span data-l="ro">Testare Ciclio</span><span data-l="en">Ciclio testing</span> · <span data-l="ro">ești pe listă</span><span data-l="en">you’re on the list</span></div>
-        <p>
-          <span data-l="ro">Mulțumim! Mai ai doi pași, de pe telefon, cu același cont Google: intră în testare, apoi instalează aplicația din Play.</span>
-          <span data-l="en">Thank you! Two more steps, from your phone, with the same Google account: join the testing, then install the app from Play.</span>
-        </p>
-        <div class="join">
-          <a class="joinBtn" href="https://play.google.com/apps/testing/app.ciclio" target="_blank" rel="noopener">
-            <span data-l="ro">1 · Intră în testare</span><span data-l="en">1 · Join the testing</span>
-          </a>
-          <a class="joinBtn ghost" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
-            <span data-l="ro">2 · Instalează din Google Play</span><span data-l="en">2 · Install from Google Play</span>
-          </a>
-        </div>
-        <p class="fine">
-          <span data-l="ro">Dacă Play spune că nu ai acces, adresa ta nu a fost încă adăugată: revino în 1–2 zile, primești și un e-mail.</span>
-          <span data-l="en">If Play says you don’t have access, your address hasn’t been added yet: come back in 1–2 days, you’ll also get an email.</span>
-        </p>
-      </div>
       <div data-done="ios">
         <div class="chip"><i></i><span data-l="ro">Ciclio pe iPhone</span><span data-l="en">Ciclio on iPhone</span> · <span data-l="ro">te anunțăm</span><span data-l="en">we’ll let you know</span></div>
         <p>
@@ -324,17 +309,15 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
   var errorBox = document.getElementById('error');
   var iosNote = document.getElementById('iosNote');
   var phone = 'android';
-  var testing = document.getElementById('testing');
   var news = document.getElementById('news');
-  var testingRow = document.getElementById('testingRow');
 
   var TITLES = {
     ro: 'Ciclio — testează aplicația înaintea tuturor',
     en: 'Ciclio — try the app before anyone else'
   };
   var ERRORS = {
-    ro: { email: 'Adresa nu pare completă. Verific-o o dată.', consent: 'Bifează cel puțin una dintre opțiuni: testarea sau noutățile.', net: 'N-a mers trimiterea. Mai încearcă o dată sau scrie-ne la contact@ciclio.app.' },
-    en: { email: 'That address doesn’t look complete. Give it another look.', consent: 'Tick at least one option: testing or news.', net: 'Sending didn’t work. Try again, or write to contact@ciclio.app.' }
+    ro: { email: 'Adresa nu pare completă. Verific-o o dată.', consent: 'Bifează căsuța cu noutățile, ca să te putem înscrie.', net: 'N-a mers trimiterea. Mai încearcă o dată sau scrie-ne la contact@ciclio.app.' },
+    en: { email: 'That address doesn’t look complete. Give it another look.', consent: 'Tick the news box so we can sign you up.', net: 'Sending didn’t work. Try again, or write to contact@ciclio.app.' }
   };
   function setLang(lang) {
     root.lang = lang;
@@ -397,16 +380,11 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
     var all = this.querySelectorAll('button');
     for (var i = 0; i < all.length; i++) all[i].setAttribute('aria-pressed', String(all[i] === btn));
     iosNote.hidden = phone !== 'ios';
-    // Play closed testing is Android-only: no testing consent from an iPhone.
-    testingRow.hidden = phone === 'ios';
-    if (phone === 'ios') testing.checked = false;
   });
 
   // The closing chip matches what was signed up for.
   function done() {
-    // Lets the landing page send this browser straight to the Play listing.
-    if (testing.checked) { try { localStorage.setItem('ciclioTester', '1'); } catch (e) { /* storage blocked */ } }
-    var kind = testing.checked ? 'testing' : phone === 'ios' ? 'ios' : 'news';
+    var kind = phone === 'ios' ? 'ios' : 'news';
     var all = document.querySelectorAll('[data-done]');
     for (var i = 0; i < all.length; i++) all[i].hidden = all[i].getAttribute('data-done') !== kind;
     box.classList.add('sent');
@@ -421,7 +399,7 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
     e.preventDefault();
     var address = email.value.trim();
     if (!VALID.test(address)) { showError('email'); email.focus(); return; }
-    if (!testing.checked && !news.checked) { showError('consent'); return; }
+    if (!news.checked) { showError('consent'); return; }
     // Bots fill the hidden field; pretend it worked and send nothing.
     if (trap.value) { done(); return; }
     sendBtn.disabled = true;
@@ -437,7 +415,7 @@ footer { margin-top: 48px; display: flex; gap: 8px 20px; flex-wrap: wrap; font-s
         email: address,
         name: nameInput.value.trim() || null,
         has_android: phone === 'android',
-        wants_testing: testing.checked,
+        wants_testing: false,
         wants_news: news.checked,
         lang: root.lang === 'en' ? 'en' : 'ro'
       })
