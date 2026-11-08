@@ -117,7 +117,7 @@
           "name": "Pe ce telefoane merge?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Acum pe Android. Aplicația este în testare închisă pe Google Play, deci o găsesc deocamdată doar testerii."
+            "text": "Acum pe Android. Aplicația este în testare deschisă pe Google Play: oricine intră în testare o poate instala."
           }
         }
       ]
@@ -483,17 +483,14 @@ footer .in span { margin-right: auto; }
     </div>
     <div class="store" id="storeChoice" hidden>
       <p>
-        <span>Ciclio e încă în testare închisă: în Google Play îl găsesc doar testerii.</span>
-        
+        <span>Ciclio e în testare deschisă: oricine îl poate instala.</span>
       </p>
       <div class="store-row">
-        <a class="pill primary" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
-          <span>Sunt tester: deschide Google Play</span>
-          
+        <a class="pill primary" href="https://play.google.com/apps/testing/app.ciclio" target="_blank" rel="noopener">
+          <span>Intră în testare</span>
         </a>
-        <a class="pill ghost" href="testeri/">
-          <span>Nu încă: mă înscriu</span>
-          
+        <a class="pill ghost" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
+          <span>Deschide Google Play</span>
         </a>
       </div>
     </div>
@@ -911,26 +908,13 @@ footer .in span { margin-right: auto; }
   }
 })();
 
-// "Ciclio on Google Play": while the app is in closed testing, the store page
-// only opens for testers. Someone who signed up from this browser goes
-// straight to Play; anyone else chooses: Play (already a tester, on another
-// browser) or the sign-up form. The list itself is never queried — that
-// would let anyone check whether an address signed up.
+// "Ciclio on Google Play": the app is in open testing, so the store page
+// only opens for people who joined. The button offers both steps: join the
+// testing (opt-in link), then open the Play listing.
 (function () {
   var link = document.getElementById("playLink");
-  if (!link) return;
-  var tester = false;
-  try { tester = localStorage.getItem("ciclioTester") === "1"; } catch (e) { /* storage blocked */ }
-  if (tester) {
-    link.href = "https://play.google.com/store/apps/details?id=app.ciclio";
-    link.target = "_blank";
-    link.rel = "noopener";
-    return;
-  }
-  // Anyone else gets the choice, instead of a store page that would say
-  // "item not found": a tester on a new browser still reaches Play in one tap.
   var choice = document.getElementById("storeChoice");
-  if (!choice) return;
+  if (!link || !choice) return;
   link.setAttribute("aria-expanded", "false");
   link.setAttribute("aria-controls", "storeChoice");
   link.addEventListener("click", function (e) {

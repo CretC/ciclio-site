@@ -2,7 +2,7 @@
 
 > Ciclio este o aplicație Android care ține minte scadențele întregii gospodării (asigurarea locuinței, revizia centralei, buletinul, vaccinul câinelui, ITP-ul, RCA-ul) și te anunță la timp. Funcționează fără cont, fără reclame; datele stau pe telefon. / Ciclio is an Android app that keeps track of your whole household's deadlines and reminds you in time, with no account and no ads.
 
-Aplicația este în testare închisă pe Google Play: deocamdată o găsesc doar testerii. / The app is in closed testing on Google Play: for now only testers can find it.
+Aplicația este în testare deschisă pe Google Play: oricine intră în testare o poate instala. / The app is in open testing on Google Play: anyone who joins the testing can install it.
 
 ## Română
 - [Pagina principală](https://ciclio.app/): ce face aplicația
