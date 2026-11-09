@@ -10,7 +10,7 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 | RCA | Vehicul | Cerut de lege | la 1 an | 30 de zile, 7 zile, 1 zi | Vehicul (Autoturism, Autoutilitară, Motocicletă, Autorulotă, Rulotă, Remorcă, Scuter / moped, ATV / quad, Tractor, Camion (peste 3,5 t), Autobuz / microbuz) | [1](https://legislatie.just.ro/Public/DetaliiDocument/190029) |
 | Revizie auto | Vehicul | Practică recomandată | la 1 an | 30 de zile, 7 zile, 1 zi | — | — |
 | Rovinietă | Vehicul | Cerut de lege | la 1 an | 30 de zile, 7 zile, 1 zi | Vehicul (Autoturism, Autoutilitară, Autorulotă, Autobuz / microbuz) | [1](https://legislatie.just.ro/Public/DetaliiDocument/272230) |
-| Impozit pe mijlocul de transport | Vehicul | Cerut de lege | la 6 luni; data sugerată: 31 martie | 30 de zile, 7 zile, 1 zi | Vehicul (Autoturism, Autoutilitară, Motocicletă, Autorulotă, Rulotă, Remorcă, Scuter / moped, Tractor, Camion (peste 3,5 t), Autobuz / microbuz, Barcă / ambarcațiune, Jet ski) | [1](https://legislatie.just.ro/Public/DetaliiDocument/171282) |
+| Impozit pe mijlocul de transport | Vehicul | Cerut de lege | la 6 luni; date sugerate: 31 martie, 30 septembrie | 30 de zile, 7 zile, 1 zi | Vehicul (Autoturism, Autoutilitară, Motocicletă, Autorulotă, Rulotă, Remorcă, Scuter / moped, Tractor, Camion (peste 3,5 t), Autobuz / microbuz, Barcă / ambarcațiune, Jet ski) | [1](https://legislatie.just.ro/Public/DetaliiDocument/171282) |
 | CASCO / asigurare facultativă | Vehicul | Practică recomandată | la 1 an | 30 de zile, 7 zile, 1 zi | — | — |
 | Extinctor | Vehicul | Practică recomandată | la 1 an | 30 de zile, 7 zile | — | [1](https://legislatie.just.ro/Public/DetaliiDocument/222294) (neverificat) |
 | Trusă medicală auto | Vehicul | Cerut de lege | o singură dată | 30 de zile, 7 zile | — | [1](https://legislatie.just.ro/Public/DetaliiDocument/41006) |
@@ -20,8 +20,8 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 | Asigurare obligatorie (PAD) | Locuință | Cerut de lege | la 1 an | 30 de zile, 10 zile | Locuință | [1](https://legislatie.just.ro/Public/DetaliiDocument/99019) |
 | Asigurare facultativă locuință | Locuință | Practică recomandată | la 1 an | 30 de zile, 7 zile, 1 zi | — | — |
 | Amendă | Altele | Cerut de lege | o singură dată | 10 zile, 5 zile, 2 zile | — | [1](https://legislatie.just.ro/Public/DetaliiDocument/29779) |
-| Impozit clădire | Locuință | Cerut de lege | la 6 luni; data sugerată: 31 martie | 30 de zile, 7 zile, 1 zi | Locuință | [1](https://legislatie.just.ro/Public/DetaliiDocument/171282) |
-| Impozit teren | Locuință | Cerut de lege | la 6 luni; data sugerată: 31 martie | 30 de zile, 7 zile, 1 zi | — | [1](https://legislatie.just.ro/Public/DetaliiDocument/171282) |
+| Impozit clădire | Locuință | Cerut de lege | la 6 luni; date sugerate: 31 martie, 30 septembrie | 30 de zile, 7 zile, 1 zi | Locuință | [1](https://legislatie.just.ro/Public/DetaliiDocument/171282) |
+| Impozit teren | Locuință | Cerut de lege | la 6 luni; date sugerate: 31 martie, 30 septembrie | 30 de zile, 7 zile, 1 zi | — | [1](https://legislatie.just.ro/Public/DetaliiDocument/171282) |
 | Revizie centrală termică | Locuință | Practică recomandată | la 1 an | 30 de zile, 7 zile, 1 zi | — | — |
 | Verificare ISCIR centrală | Locuință | Cerut de lege | la 2 ani | 30 de zile, 7 zile, 1 zi | Locuință | [1](https://iscir.ro/wp-content/uploads/2011/03/A1C2C112010.pdf) (neverificat) |
 | Verificare instalație gaz | Locuință | Cerut de lege | la 2 ani | 30 de zile, 7 zile, 1 zi | Locuință | [1](https://www.ppcenergy.ro/wp-content/uploads/ord-96-2023.pdf) |
@@ -49,7 +49,7 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 Rândul de sub tipul ales, când omul adaugă o obligație.
 
 - **ITP**: La autoturisme: prima ITP la 3 ani, apoi la 2 ani, și în fiecare an de la 12 ani de la fabricație. Alte vehicule au alt ritm; data exactă e pe documentul ultimei inspecții.
-- **Rovinietă**: Pentru o rovinietă mai scurtă de un an, alege în Notificări → Cu cât timp înainte termene mici, potrivite cu durata cumpărată.
+- **Rovinietă**: Pentru o rovinietă de 1, 10, 30 sau 60 de zile, pune data de expirare de pe dovada de plată și alege „O singură dată”, dacă nu o cumperi din nou. Reamintirile care ar cădea înainte de cumpărare nu se trimit.
 - **Impozit pe mijlocul de transport**: Se plătește în două rate: 31 martie și 30 septembrie. Plata integrală până la 31 martie poate aduce o bonificație, dacă primăria o acordă.
 - **Inspecție ambarcațiune (ANR)**: Pune data următoarei inspecții din certificatul ambarcațiunii. După inspecție, adaugă data următoare.
 - **Asigurare obligatorie (PAD)**: PAD acoperă doar cutremur, alunecări de teren și inundații. Se reînnoiește la 12 luni.
