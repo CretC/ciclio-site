@@ -41,6 +41,7 @@ Generat din catalog; nu edita de mână. Informații orientative, nu consultanț
 | Pașaport ecvin | Animale de companie | Cerut de lege | o singură dată | 30 de zile, 7 zile | — | [1](https://eur-lex.europa.eu/eli/reg_impl/2021/963/oj) |
 | Vaccin antrax | Animale de companie | Cerut de lege | la 1 an | 30 de zile, 7 zile | Animal de companie (Vacă / vițel, Oi / capre) | [1](https://legislatie.just.ro/Public/DetaliiDocument/309370) [2](https://legislatie.just.ro/Public/DetaliiDocument/300283) (neverificat) |
 | Testare tuberculină | Animale de companie | Cerut de lege | la 1 an | 30 de zile, 7 zile | Animal de companie (Vacă / vițel) | [1](https://legislatie.just.ro/Public/DetaliiDocument/309370) [2](https://legislatie.just.ro/Public/DetaliiDocument/300283) (neverificat) |
+| Tratament varrooză | Animale de companie | Cerut de lege | la 1 an | 30 de zile, 7 zile | Animal de companie (Stup / albine) | [1](https://www.ansvsa.ro/sanatate-bunastare-si-nutritie-animala/sanatatea-animalelor/boli-albine/) (neverificat) |
 | Asigurare pentru animal de companie | Animale de companie | Practică recomandată | la 1 an | 30 de zile, 7 zile, 1 zi | — | — |
 | Control veterinar | Animale de companie | Practică recomandată | la 1 an | 14 zile, 3 zile, 1 zi | Animal de companie (Dihor, Hamster, Iepure, Cobai, Chinchilla, Șoarece / șobolan, Papagal, Canar, Perușă, Șarpe, Țestoasă, Șopârlă / gecko, Broască, Cal / ponei, Alt animal) | — |
 | Mentenanță | Alt bun | Personal | la 1 an | 30 de zile, 7 zile | Vehicul (ATV / quad, Bicicletă electrică, Trotinetă electrică, Barcă / ambarcațiune, Jet ski, Alt vehicul); Alt bun | — |
@@ -65,5 +66,6 @@ Rândul de sub tipul ales, când omul adaugă o obligație.
 - **Pașaport UE pentru animale de companie**: Pașaportul nu expiră; contează data vaccinului antirabic.
 - **Vaccin antrax**: Vaccinarea antrax e obligatorie o dată pe an, la cel mult 12 luni de la cea anterioară. O face medicul veterinar de circumscripție, de obicei primăvara. Pune data ultimei vaccinări, trecută în evidența lui.
 - **Testare tuberculină**: Testul anual pentru tuberculoză îl face medicul veterinar de circumscripție, de obicei toamna. Rezultatul se citește după 3 zile.
+- **Tratament varrooză**: Familiile de albine se tratează contra varroozei în fiecare an, cu un produs veterinar autorizat, de obicei după ultimul cules.
 
 Rândurile marcate „Practică recomandată” nu sunt obligații legale; „neverificat” înseamnă că temeiul legal nu este confirmat de un om.
