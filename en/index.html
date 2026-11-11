@@ -117,7 +117,7 @@
           "name": "Which phones does it run on?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Android for now. The app is in open testing on Google Play: anyone who joins the testing can install it in 6 countries."
+            "text": "Android for now. Install it straight from Google Play, in 6 countries. The app is in open testing, so Google Play shows it as early access."
           }
         }
       ]
@@ -321,10 +321,7 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
 .pill.primary:hover { color: #fff; filter: brightness(1.1); }
 .pill.ghost { background: rgba(11, 14, 26, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--fg); border: 1px solid var(--line); cursor: pointer; }
 .pill.ghost[hidden] { display: none; }
-.store { margin: 16px auto 0; max-width: 460px; padding: 16px; border-radius: 20px; background: rgba(11, 14, 26, 0.92); border: 1px solid var(--line); pointer-events: auto; text-align: center; }
-.store[hidden] { display: none; }
-.store p { margin: 0; font-size: 15px; color: var(--muted); }
-.store-row { margin-top: 12px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.store-note { margin: 14px 0 0; font-size: 14px; color: var(--muted); text-align: center; }
 .switch {
   display: inline-flex;
   align-items: center;
@@ -458,14 +455,9 @@ footer .in span { margin-right: auto; }
       <span><span class="hint-pointer">Move your cursor around.</span><span class="hint-tilt">Drag the lens, or turn on motion.</span> Ciclio keeps an eye on all of them, so you don’t have to.</span>
     </p>
     <div class="cta">
-      <a class="pill primary" href="../testeri/">
-        
-        <span>I want to be a tester</span>
-      </a>
-      <a class="pill ghost" id="playLink" href="../testeri/">
+      <a class="pill primary" id="playLink" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
-        
-        <span>Ciclio on Google Play</span>
+        <span>Install from Google Play</span>
       </a>
       <a class="pill ghost" href="#detalii">
         
@@ -481,19 +473,7 @@ footer .in span { margin-right: auto; }
         <span>Your browser is not sending motion data. Check the "Motion sensors" permission in site settings (in Brave, Shields too).</span>
       </p>
     </div>
-    <div class="store" id="storeChoice" hidden>
-      <p>
-        <span>Ciclio is in open testing: anyone who joins the testing can install it in 6 countries.</span>
-      </p>
-      <div class="store-row">
-        <a class="pill primary" href="https://play.google.com/apps/testing/app.ciclio" target="_blank" rel="noopener">
-          <span>Join the testing</span>
-        </a>
-        <a class="pill ghost" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
-          <span>Open Google Play</span>
-        </a>
-      </div>
-    </div>
+    <p class="store-note"><span>Free, no account. In open testing on Google Play, in 6 countries.</span></p>
   </div>
 </header>
 
@@ -907,21 +887,6 @@ footer .in span { margin-right: auto; }
   }
 })();
 
-// "Ciclio on Google Play": the app is in open testing, so the store page
-// only opens for people who joined. The button offers both steps: join the
-// testing (opt-in link), then open the Play listing.
-(function () {
-  var link = document.getElementById("playLink");
-  var choice = document.getElementById("storeChoice");
-  if (!link || !choice) return;
-  link.setAttribute("aria-expanded", "false");
-  link.setAttribute("aria-controls", "storeChoice");
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    choice.hidden = !choice.hidden;
-    link.setAttribute("aria-expanded", String(!choice.hidden));
-  });
-})();
 </script>
 </body>
 </html>

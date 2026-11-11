@@ -117,7 +117,7 @@
           "name": "Pe ce telefoane merge?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Acum pe Android. Aplicația este în testare deschisă pe Google Play: oricine intră în testare o poate instala în 6 țări."
+            "text": "Acum pe Android. O instalezi direct din Google Play, în 6 țări. Aplicația e în testare deschisă, deci Google Play o afișează ca acces anticipat."
           }
         }
       ]
@@ -321,10 +321,7 @@ html[lang="ro"] [data-l="ro"], html[lang="en"] [data-l="en"] { display: revert; 
 .pill.primary:hover { color: #fff; filter: brightness(1.1); }
 .pill.ghost { background: rgba(11, 14, 26, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--fg); border: 1px solid var(--line); cursor: pointer; }
 .pill.ghost[hidden] { display: none; }
-.store { margin: 16px auto 0; max-width: 460px; padding: 16px; border-radius: 20px; background: rgba(11, 14, 26, 0.92); border: 1px solid var(--line); pointer-events: auto; text-align: center; }
-.store[hidden] { display: none; }
-.store p { margin: 0; font-size: 15px; color: var(--muted); }
-.store-row { margin-top: 12px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.store-note { margin: 14px 0 0; font-size: 14px; color: var(--muted); text-align: center; }
 .switch {
   display: inline-flex;
   align-items: center;
@@ -458,14 +455,9 @@ footer .in span { margin-right: auto; }
       
     </p>
     <div class="cta">
-      <a class="pill primary" href="testeri/">
-        <span>Vreau să fiu tester</span>
-        
-      </a>
-      <a class="pill ghost" id="playLink" href="testeri/">
+      <a class="pill primary" id="playLink" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
-        <span>Ciclio pe Google Play</span>
-        
+        <span>Instalează din Google Play</span>
       </a>
       <a class="pill ghost" href="#detalii">
         <span>Detalii</span>
@@ -481,19 +473,7 @@ footer .in span { margin-right: auto; }
         
       </p>
     </div>
-    <div class="store" id="storeChoice" hidden>
-      <p>
-        <span>Ciclio e în testare deschisă: oricine intră în testare îl poate instala în 6 țări.</span>
-      </p>
-      <div class="store-row">
-        <a class="pill primary" href="https://play.google.com/apps/testing/app.ciclio" target="_blank" rel="noopener">
-          <span>Intră în testare</span>
-        </a>
-        <a class="pill ghost" href="https://play.google.com/store/apps/details?id=app.ciclio" target="_blank" rel="noopener">
-          <span>Deschide Google Play</span>
-        </a>
-      </div>
-    </div>
+    <p class="store-note"><span>Gratuit, fără cont. E în testare deschisă pe Google Play, în 6 țări.</span></p>
   </div>
 </header>
 
@@ -908,21 +888,6 @@ footer .in span { margin-right: auto; }
   }
 })();
 
-// "Ciclio on Google Play": the app is in open testing, so the store page
-// only opens for people who joined. The button offers both steps: join the
-// testing (opt-in link), then open the Play listing.
-(function () {
-  var link = document.getElementById("playLink");
-  var choice = document.getElementById("storeChoice");
-  if (!link || !choice) return;
-  link.setAttribute("aria-expanded", "false");
-  link.setAttribute("aria-controls", "storeChoice");
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    choice.hidden = !choice.hidden;
-    link.setAttribute("aria-expanded", String(!choice.hidden));
-  });
-})();
 </script>
 </body>
 </html>
